@@ -25,9 +25,7 @@ SECRET_KEY = '&i_uy7df&5+sv+pm(3j+x7-((1#0-y@r%&((e7dgzm-$h@cwi#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = ["localhost","127.0.0.1", "skidon.herokuapp.com"]
 # Application definition
 
 INSTALLED_APPS = [
