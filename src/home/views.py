@@ -6,6 +6,7 @@ def index(request):
     return render(request, "index.html", {
         "data":[
             "Skidon project",
-            system()
+            system(),
+            "Albina Kondratenko, i love you"
     ],
     })
