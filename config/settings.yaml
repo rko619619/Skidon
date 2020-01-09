@@ -1,0 +1,11 @@
+default:
+  SECRET_KEY: '&i_uy7df&5+sv+pm(3j+x7-((1#0-y@r%&((e7dgzm-$h@cwi#'
+  DEBUG:  true
+  ALLOWED_HOSTS: []
+
+heroku:
+  DEBUG: false
+  ALLOWED_HOSTS:
+    - 127.0.0.1
+    - localhost
+    - skidon.herokuapp.com

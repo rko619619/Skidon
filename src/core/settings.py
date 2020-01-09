@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+from dynaconf import settings as _settings
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&i_uy7df&5+sv+pm(3j+x7-((1#0-y@r%&((e7dgzm-$h@cwi#'
+SECRET_KEY =_settings.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = _settings.DEBUG
 
-ALLOWED_HOSTS = ["localhost","127.0.0.1", "skidon.herokuapp.com"]
+ALLOWED_HOSTS =_settings.ALLOWED_HOSTS
 # Application definition
 
 INSTALLED_APPS = [
@@ -117,3 +117,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+import json
+print(
+    json.dumps(
+        {
+            "ALLOWED_HOSTS": ALLOWED_HOSTS,
+            "DEBUG": DEBUG,
+            "SECRET_KEY": SECRET_KEY,
+        },
+        indent=4,
+        sort_keys=True,
+    )
+)
