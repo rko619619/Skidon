@@ -118,15 +118,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-import json
-print(
-    json.dumps(
-        {
-            "ALLOWED_HOSTS": ALLOWED_HOSTS,
-            "DEBUG": DEBUG,
-            "SECRET_KEY": SECRET_KEY,
-        },
-        indent=4,
-        sort_keys=True,
-    )
-)
