@@ -11,7 +11,6 @@ def index(request):
             "data": [
                 "Skidon project",
                 system(),
-                "Albina Kondratenko, i love you, ti konchennaya",
             ]
         },
     )
