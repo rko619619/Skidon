@@ -9,3 +9,10 @@ heroku:
     - 127.0.0.1
     - localhost
     - skidon.herokuapp.com
+
+development:
+  DEBUG: false
+  ALLOWED_HOSTS:
+    - 127.0.0.1
+    - localhost
+    - skidon.herokuapp.com
