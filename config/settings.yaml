@@ -1,5 +1,5 @@
 default:
-  SECRET_KEY: ""
+  SECRET_KEY: "qwwe"
   DEBUG:  true
   ALLOWED_HOSTS: []
   DATABASE_URL: ""

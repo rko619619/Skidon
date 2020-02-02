@@ -11,14 +11,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from pathlib import Path
-
-#import dj_database_url
-from django.urls import reverse_lazy
 from dynaconf import settings as _settings
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = Path(__file__).parent.parent.resolve()
-PROJECT_DIR= BASE_DIR / "project"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,20 +36,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
-    "apps.about",
-    "apps.actual",
-    "apps.api",
-    "apps.dynamics",
-    "apps.graphics",
-    "apps.onboarding",
-
-    "home",
+    "about",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -83,13 +70,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 
-db_url = _settings.DATABASE_URL
-if _settings.ENV_FOR_DYNACONF =="heroku":
-    db_url = os.getenv("DATABASE_URL")
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-#DATABASES = {"default": dj_database_url.parse(db_url, conn_max_age=600 )}
+DATABASE={
+    'default':{
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME' : os.path.join(BASE_DIR, 'db.sqlite3')
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -128,4 +117,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-

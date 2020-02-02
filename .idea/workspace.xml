@@ -20,10 +20,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1W9usrzDOUc0bL1zlc9IY9wSVv7" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Z22/homeworks/yan_romanovich/lesson09/test_level01.py" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.virtualenvs/Skidon-xvHtI_7T" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -57,11 +58,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Z22/homeworks/yan_romanovich/lesson09" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../Z22/homeworks/yan_romanovich/lesson09" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Z22/homeworks/yan_romanovich/lesson09/level01.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../Z22/homeworks/yan_romanovich/lesson09/level01.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -78,11 +79,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Z22/homeworks/yan_romanovich/lesson09" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../Z22/homeworks/yan_romanovich/lesson09" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Z22/homeworks/yan_romanovich/lesson09/test_level01.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../Z22/homeworks/yan_romanovich/lesson09/test_level01.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
