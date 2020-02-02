@@ -4,13 +4,4 @@ from platform import system
 
 
 def actual(request):
-    return render(
-        request,
-        "index.html",
-        {
-            "data": [
-                "Skidon project",
-                system(),
-            ]
-        },
-    )
+    return render(request, "home/index.html", {"data": ["Skidon project", system()]})
