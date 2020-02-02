@@ -23,18 +23,18 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.virtualenvs/Skidon-xvHtI_7T" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/home" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Yan\Skidon\Skidon\src\core\templates" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Yan\Skidon\Skidon\src\core" />
       <recent name="C:\Users\Yan\Skidon\Skidon\src\home\templates" />
       <recent name="C:\Users\Yan\Skidon\Skidon\src\core\templates" />
       <recent name="C:\Users\Yan\Skidon\Skidon\src\home\templates\home" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yan\Skidon\Skidon\src\core\templates" />
     </key>
   </component>
   <component name="RunDashboard">
