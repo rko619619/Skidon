@@ -33,11 +33,11 @@
       <recent name="C:\Users\Yan\Skidon\Skidon\src\core\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Yan\Skidon\src\about" />
       <recent name="C:\Users\Yan\Skidon\src\about\templates" />
       <recent name="C:\Users\Yan\Skidon\src\home\templates\home" />
       <recent name="C:\Users\Yan\Skidon\src\about\templates\about" />
       <recent name="C:\Users\Yan\Skidon\Skidon\src\core" />
-      <recent name="C:\Users\Yan\Skidon\Skidon\src\home\templates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -52,28 +52,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.urls (1)">
-    <configuration name="level01" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Skidon" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../Z22/homeworks/yan_romanovich/lesson09" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../Z22/homeworks/yan_romanovich/lesson09/level01.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.views">
     <configuration name="settings" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Skidon" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -158,13 +137,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Skidon" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/about" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/about/views.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.views" />
         <item itemvalue="Python.urls (1)" />
         <item itemvalue="Python.urls" />
         <item itemvalue="Python.settings" />
         <item itemvalue="Python.test_level01" />
-        <item itemvalue="Python.level01" />
       </list>
     </recent_temporary>
   </component>
