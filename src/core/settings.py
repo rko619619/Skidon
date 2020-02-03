@@ -54,13 +54,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-db_url = _settings.DATABASE_URL
-if _settings.ENV_FOR_DYNACONF == "heroku":
-    db_url = os.getenv("DATABASE_URL")
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
+        #"ENGINE": "django.db.backends.sqlite3",
         "NAME": (BASE_DIR / "db.sqlite3").as_posix(),
     }
 }
@@ -86,4 +82,4 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = "/static/"
+
