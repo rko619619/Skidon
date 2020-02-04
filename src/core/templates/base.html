@@ -5,15 +5,203 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Jan{% block title %}{% endblock %}</title>
+    <title>Новости о еде! Скидки в Минске!</title>
     <link rel="stylesheet" href='{% static "css/base.css" %}'/>
     <script defer src="hhtps://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    <style>
+        *{
+    margin:0;
+    padding:0;
+    font-family:"montserrat", sans-serif;
+    }
+   .header{
+   height: 100px;
+   background: #34495e;
+   padding: 0 20px;
+   color: #fff;
+   }
+   .logo{
+   line-height: 100px;
+   float: left;
+   text-transform: uppercase;
+   }
+   .menu{
+   float: left;
+   line-height: 100px;
+
+   }
+   .menu a{
+   color: #fff;
+   text-transform: uppercase;
+   text-decoration: none;
+   padding: 0 15px;
+   }
+   .show-menu-btn, .hide-menu-btn{
+   transition: 0.4s;
+   font-size: 30px;
+   cursor: pointer;
+   display: none;
+
+   }
+   .show-menu-btn{
+   float: right;
+   }
+   .show-menu-btn i{
+   line-height: 100px;
+   }
+   .menu a:hover,
+   .show-menu-btn:hover,
+   .hide-menu-btn:hover{
+   color: #3498db;
+   }
+   #chk{
+   position: absolute;
+   visibility: hidden;
+   z-index: -1111;
+   }
+   @media screen and (max-width:800px){
+   .show-menu-btn, .hide-menu-btn{
+   display: block;
+   }
+   .menu{
+   position: fixed;
+   width:100%;
+   height:100vh;
+   background: #333;
+   right:-100%;
+   top: 0;
+   text-align: center;
+   padding: 80px 0;
+   line-heught: normal;
+   transition: 0.6s;
+   }
+   .menu a{
+   display: block;
+   padding: 20px;
+   }
+   .hide-menu-btn{
+   position: absolute;
+   top: 40px;
+   right: 40px;
+   }
+   #chk:checked ~ .menu{
+   right:0;
+   }
+   }
+    .search-box{
+    position: absolute;
+    top:50px;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    background: #2f3640;
+    height:40px;
+    border-radius: 40px;
+    padding:10px  10px;
+    }
+
+    .search-box:hover >.search-txt{
+    width: 240px;
+    padding: 0 6px;
+    }
+    .search-box:hover >.search-btn{
+    background: white;
+
+    }
+    .search-btn{
+    color: #e84118;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2f3640;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:0.4s;
+    }
+    .search-txt{
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: left;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+    }
+    button{
+        position: absolute;
+        top: 50px;
+        left: 80%;
+        button: 10px;
+        transform: translate(-50%, -50%);
+    }
+    button{
+        background: none;
+        color: #ccc;
+        width: 75px;
+        height: 40px;
+        border: 1px solid #338033;
+        fon-size: 18px;
+        border-radius: 4px;
+        transition: .6s;
+        overflow: hidden;
+       }
+     button:focus {
+        outline: none;
+     }
+     button:before{
+        content: '':
+        display: block;
+        position: absolute;
+        background: rgba(255,255,255, .5);
+        width: 60px;
+        height: 100%;
+        left: 0;
+        top: 0;
+        opacity: .5s;
+        filter: blur(30px);
+        transform: translateX(-130px) skewX(-15deg);
+     }
+     button:after {
+     content:'';
+     display: block;
+     position: absolute;
+     background: rgba(255,255,255, .2);
+     width: 30px;
+     height: 100%;
+     left: 30px;
+     top: 0;
+     opacity: 0;
+     filter: blur(30px);
+     transform: translate(-100px) scaleX(-15deb);
+     }
+
+     button:hover{
+     background: #338033;
+     cursor: pointer;
+     }
+
+     button:hover:before{
+     transform: translateX(300px) skewX(-15deb);
+     opacity: .6;
+     transition: .7s;
+     }
+
+     button:hover:after{
+     transform: translateX(300px) skewX(-15deb);
+     opacity: 1;
+     transition: .7s;
+     }
+    </style>
 </head>
 <body>
 <div class="header">
-    <h2 class="logo">Skidon</h2>
+    <h2 class="logo">Ежа</h2>
     <input type="checkbox" id="chk">
     <label for="chk" class="show-menu-btn">
         <i class="fas fa-ellipsis-h"></i>
@@ -32,7 +220,11 @@
             <i class="fas fa-times"></i>
         </label>
     </ul>
+    <div class="wrapper" >
+        <div class="btn">
+            <button type="button">Войти</button>
+        </div>
+    </div>
 </div>
-
 </body>
 </html>
