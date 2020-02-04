@@ -24,20 +24,20 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/home" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PL/SQL (DBN)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Yan\Skidon\src\about\templates" />
+      <recent name="C:\Users\Yan\Skidon\src\about\templates\about" />
+      <recent name="C:\Users\Yan\Skidon\src\core" />
+      <recent name="C:\Users\Yan\Skidon\src\about" />
+      <recent name="C:\Users\Yan\Skidon\src\home\templates\home" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Yan\Skidon\src\home" />
       <recent name="C:\Users\Yan\Skidon\src\home\templates" />
       <recent name="C:\Users\Yan\Skidon\Skidon\src\core\templates" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Yan\Skidon\src\about" />
-      <recent name="C:\Users\Yan\Skidon\src\about\templates" />
-      <recent name="C:\Users\Yan\Skidon\src\home\templates\home" />
-      <recent name="C:\Users\Yan\Skidon\src\about\templates\about" />
-      <recent name="C:\Users\Yan\Skidon\Skidon\src\core" />
     </key>
   </component>
   <component name="RunDashboard">

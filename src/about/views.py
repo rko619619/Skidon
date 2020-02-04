@@ -1,9 +1,4 @@
 from django.shortcuts import render
 
-
-
-def about(request):
-    return render(
-        request,
-        "index.html",
-    )
+def index(requests):
+    return render(requests,"index.html")
