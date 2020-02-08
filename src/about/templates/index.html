@@ -1,9 +1,14 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+{% load static %}
 
-{% block title %}:: Romanovich{% endblock %}
+<html lang="en">
 
-{% block body %}
-<h1>
-    ewqeqweqweqwewq
-</h1>
-{% endblock %}
+<head>
+</head>
+<body>
+
+{% for tech in technologies %}
+<li>{{tech.name}}</li>
+{% endfor %}
+</body>
+</html>
