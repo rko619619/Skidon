@@ -17,7 +17,7 @@ PROJECT_DIR = BASE_DIR / "core"
 SECRET_KEY = _settings.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = _settings.DEBUG
 
 ALLOWED_HOSTS = _settings.ALLOWED_HOSTS
 # Application definition
