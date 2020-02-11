@@ -1,6 +1,9 @@
 import os
+import dj_database_url
 from pathlib import Path
+from django.urls import reverse_lazy
 from dynaconf import settings as _settings
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).parent.parent.resolve()
@@ -59,15 +62,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
+db_url = _settings.DATABASE_URL
+if _settings.ENV_FOR_DYNACONF == "heroku":
+    db_url = os.getenv("DATABASE_URL")
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": (BASE_DIR / "db.sqlite3").as_posix(),
-    }
-}
+DATABASES = {"default": dj_database_url.parse(db_url, conn_max_age=600)}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

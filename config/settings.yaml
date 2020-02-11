@@ -2,7 +2,7 @@ default:
   SECRET_KEY: "qwe"
   DEBUG:  True
   ALLOWED_HOSTS: []
-  DATABASE_URL: ""
+  DATABASE_URL:
 
 heroku:
   DEBUG: True
@@ -16,6 +16,7 @@ development:
   ALLOWED_HOSTS:
     - 127.0.0.1
     - localhost
+
 
 travis:
    DEBUG: true 
