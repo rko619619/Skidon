@@ -11,6 +11,8 @@ class AboutView(TemplateView):
 
         context["Katalog"]= Katalog.objects.all()
         context["Discount"]= Discount.objects.all()
+        context["Post_kateg"]= Discount.objects.all()
+
 
         return context
 
