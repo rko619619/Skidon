@@ -4,7 +4,7 @@ from about.models import Katalog, Discount
 class AboutView(TemplateView):
     http_method_names =('get','post')
 
-    template_name="index.html"
+    template_name="about/index.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
