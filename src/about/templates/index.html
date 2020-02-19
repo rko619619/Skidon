@@ -1,14 +1,16 @@
-<!DOCTYPE html>
-{% load static %}
+{% block content %}
 
-<html lang="en">
-
-<head>
-</head>
-<body>
-
-{% for tech in technologies %}
-<li><a href="{{tech.name}}"></a></li>
+<div>
+    {% for k in Katalog %}
+<option value="{{K.title}}>">{{K.title}}</option>
 {% endfor %}
-</body>
-</html>
+</div>
+
+<div>
+    {% for c in Discount %}
+<option value="{{D.shop}}>">{{D.shop}}</option>
+{% endfor %}
+</div>
+
+
+{% endblock %}
