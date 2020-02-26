@@ -5,7 +5,7 @@ class Post_kateg(m.Model):
     name = m.TextField(unique=True)
 
     class Meta:
-        verbose_name_plural ="Post_kateg"
+        verbose_name_plural = "Post_kateg"
         ordering = ["name"]
 
         def __repr__(self):
