@@ -1,8 +1,9 @@
 default:
-  SECRET_KEY: ""
-  DEBUG:  True
   ALLOWED_HOSTS: []
   DATABASE_URL: ""
+  DEBUG:  True
+  SECRET_KEY: ""
+  TELEGRAM_SKIDONBOT_TOKEN: ""
 
 heroku:
   DEBUG: True
