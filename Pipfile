@@ -7,11 +7,11 @@ verify_ssl = true
 black = "==19.3b0"
 
 [packages]
+
+dj-database-url = "*"
 django = "*"
 dynaconf = {extras = ["yaml"],version = "*"}
-dj-database-url = "*"
 psycopg2 = "*"
 requests = "*"
-
 [requires]
 python_version = "3.7"
