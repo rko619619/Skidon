@@ -8,8 +8,8 @@ class Post_kateg(m.Model):
         verbose_name_plural ="Post_kateg"
         ordering = ["name"]
 
-        def __repr__(self):
-            return f"Kate # {self.pk}: '{self.name}'"
+    def __repr__(self):
+        return f"Kate # {self.pk}: '{self.name}'"
 
-        def __str__(self):
-            return f"{self.pk}: '{self.name}'"
+    def __str__(self):
+        return f"{self.pk}: '{self.name}'"

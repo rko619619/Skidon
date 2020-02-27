@@ -9,8 +9,8 @@ class Discount(m.Model):
         verbose_name_plural ="Discount"
         ordering = ["shop"]
 
-        def __repr__(self):
-            return f"Shop # {self.pk}: '{self.media}'"
+    def __repr__(self):
+        return f"Shop # {self.pk}: '{self.media}'"
 
-        def __str__(self):
-            return f"{self.shop}: '{self.pk}'"
+    def __str__(self):
+        return f"{self.shop}: '{self.pk}'"
