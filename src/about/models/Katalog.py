@@ -11,8 +11,8 @@ class Katalog(m.Model):
         verbose_name_plural = "katalog"
         ordering = ["title"]
 
-        def __repr__(self):
-            return f"Zavedeniya # {self.pk}: '{self.title}'"
+    def __repr__(self):
+        return f"Zavedeniya # {self.pk}: '{self.title}'"
 
-        def __str__(self):
-            return f"{self.pk}: '{self.title}'"
+    def __str__(self):
+        return f"{self.pk}: '{self.title}'"

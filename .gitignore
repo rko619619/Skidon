@@ -133,3 +133,5 @@ dmypy.json
 
 #secrets
 **/.secrets.*
+
+/config/.settings.yaml.swp
