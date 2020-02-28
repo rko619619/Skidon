@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from about.models import Katalog, Discount, Post_kateg
 
 class AboutView(TemplateView):
-    #http_method_names =('get','post')
+    http_method_names =('get','post')
 
     template_name="about/index.html"
 
