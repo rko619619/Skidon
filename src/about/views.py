@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from about.models import Katalog, Discount, Post_kateg
+from about.models import Katalog, Discount, Post_kateg, Post
 
 class AboutView(TemplateView):
     http_method_names =('get','post')
@@ -12,7 +12,7 @@ class AboutView(TemplateView):
         context["Katalog"]= Katalog.objects.all()
         context["Discount"]= Discount.objects.all()
         context["Post_kateg"]=Post_kateg.objects.all()
-
+        context["Post"] = Post.objects.all()
 
         return context
 
