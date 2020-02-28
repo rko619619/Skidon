@@ -1,5 +1,7 @@
 from django.db import models as m
-from about.models import Post_kateg
+
+from about.models.post_kateg import Post_kateg
+
 
 
 class Post (m.Model):
@@ -11,7 +13,7 @@ class Post (m.Model):
 
     class Meta:
         verbose_name_plural ="post"
-        ordering = ["at, title"]
+        ordering = ["at","title"]
 
     def __repr__(self):
         return f"{self.__class__.__name__}#{self.pk}:{self.title}"
