@@ -1,5 +1,5 @@
 from django.urls import path
+from about.views import TelegramView
+from django.views.decorators.csrf import csrf_exempt
 
-from about.views import AboutView
-
-urlpatterns = [path("", AboutView.as_view(), name="about")]
+urlpatterns = [path("telegram/", csrf_exempt(TelegramView.as_view())),]

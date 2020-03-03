@@ -1,20 +1,36 @@
-from django.views.generic import TemplateView
-from about.models import Katalog, Discount, Post_kateg, Post
+import json
 
-class AboutView(TemplateView):
-    http_method_names =('get','post')
+from django.core.exceptions import PermissionDenied
+from django.http import HttpRequest
+from django.views.generic import View
 
-
-    template_name = "about/index.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-
-        context["Katalog"]= Katalog.objects.all()
-        context["Discount"]= Discount.objects.all()
-        context["Post_kateg"]=Post_kateg.objects.all()
-        context["Post"] = Post.objects.all()
+from dynaconf import settings
+from urllib.request import Request
+from django.http.response import JsonResponse
+import requests
 
 
-        return context
+class TelegramView(View):
+    def post(self, request: HttpRequest, *_args, **_kw):
+        if not settings.TELEGRAM_SKIDONBOT_TOKEN:
+            raise PermissionDenied("no bot token")
+        payload = json.loads(request.body)
+
+        message = payload["message"]
+        chat_id = message["chat"]["id"]
+        user_id = message["from"]["id"]
+
+        tg_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMessage"
+        tg_resp = requests.post(
+            tg_url, json={"chat_id": chat_id, "text": payload}
+        )
+
+        return JsonResponse(
+            data={
+                "chat_id": chat_id,
+                "message": message,
+                "tg": str(tg_resp),
+                "user_id": user_id,
+            },
+            # content_type="application/json",
+        )

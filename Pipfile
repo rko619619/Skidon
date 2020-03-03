@@ -5,13 +5,15 @@ verify_ssl = true
 
 [dev-packages]
 black = "==19.3b0"
+httpie = "*"
+pudb = "*"
 
 [packages]
-
 dj-database-url = "*"
 django = "*"
 dynaconf = {extras = ["yaml"],version = "*"}
 psycopg2 = "*"
 requests = "*"
+
 [requires]
 python_version = "3.7"

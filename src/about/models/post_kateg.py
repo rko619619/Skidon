@@ -3,6 +3,7 @@ from django.db import models as m
 
 class Post_kateg(m.Model):
     name = m.TextField(unique=True)
+
     class Meta:
         verbose_name_plural = "Post_kateg"
         ordering = ["name"]
@@ -13,4 +14,3 @@ class Post_kateg(m.Model):
     def __str__(self):
         return f"{self.name}: '{self.pk}'"
         return f"Kate # {self.pk}: '{self.name}'"
-
