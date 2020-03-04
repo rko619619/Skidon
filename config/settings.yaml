@@ -3,7 +3,7 @@ default:
   DATABASE_URL: ""
   DEBUG:  True
   SECRET_KEY: ""
-  TELEGRAM_SKIDONBOT_TOKEN: ""
+  TELEGRAM_SKIDON_TOKEN: ""
 
 heroku:
   DEBUG: True

@@ -5,7 +5,6 @@ from django.http import HttpRequest
 from django.views.generic import View
 
 from dynaconf import settings
-from urllib.request import Request
 from django.http.response import JsonResponse
 import requests
 
@@ -19,10 +18,11 @@ class TelegramView(View):
         message = payload["message"]
         chat_id = message["chat"]["id"]
         user_id = message["from"]["id"]
+        last_name = message["from"]["last_name"]
 
-        tg_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMessage"
+        tg_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDON_TOKEN}/sendMessage"
         tg_resp = requests.post(
-            tg_url, json={"chat_id": chat_id, "text": payload}
+            tg_url, json={"chat_id": chat_id, "text": last_name}
         )
 
         return JsonResponse(
