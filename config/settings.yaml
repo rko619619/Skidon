@@ -11,6 +11,7 @@ heroku:
     - 127.0.0.1
     - localhost
     - skidon.herokuapp.com
+    - skidon.herokuapp.com/telegram
 
 development:
   DEBUG: true
