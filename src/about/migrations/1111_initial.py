@@ -8,60 +8,85 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Discount',
+            name="Discount",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('media', models.URLField(unique=True)),
-                ('shop', models.TextField(unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("media", models.URLField(unique=True)),
+                ("shop", models.TextField(unique=True)),
             ],
-            options={
-                'verbose_name_plural': 'Discount',
-                'ordering': ['shop'],
-            },
+            options={"verbose_name_plural": "Discount", "ordering": ["shop"]},
         ),
         migrations.CreateModel(
-            name='Katalog',
+            name="Katalog",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.TextField(unique=True)),
-                ('content', models.TextField(unique=True)),
-                ('media', models.URLField(unique=True)),
-                ('adress', models.TextField(blank=True, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.TextField(unique=True)),
+                ("content", models.TextField(unique=True)),
+                ("media", models.URLField(unique=True)),
+                ("adress", models.TextField(blank=True, null=True)),
             ],
-            options={
-                'verbose_name_plural': 'katalog',
-                'ordering': ['title'],
-            },
+            options={"verbose_name_plural": "katalog", "ordering": ["title"]},
         ),
         migrations.CreateModel(
-            name='Post_kateg',
+            name="Post_kateg",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.TextField(unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.TextField(unique=True)),
             ],
-            options={
-                'verbose_name_plural': 'Post_kateg',
-                'ordering': ['name'],
-            },
+            options={"verbose_name_plural": "Post_kateg", "ordering": ["name"]},
         ),
         migrations.CreateModel(
-            name='Post',
+            name="Post",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.TextField(unique=True)),
-                ('content', models.TextField(unique=True)),
-                ('media', models.URLField(unique=True)),
-                ('at', models.DateField()),
-                ('post_kateg', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='about.Post_kateg')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.TextField(unique=True)),
+                ("content", models.TextField(unique=True)),
+                ("media", models.URLField(unique=True)),
+                ("at", models.DateField()),
+                (
+                    "post_kateg",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="about.Post_kateg",
+                    ),
+                ),
             ],
-            options={
-                'verbose_name_plural': 'post',
-                'ordering': ['at', 'title'],
-            },
+            options={"verbose_name_plural": "post", "ordering": ["at", "title"]},
         ),
     ]

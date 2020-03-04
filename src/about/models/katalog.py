@@ -5,10 +5,10 @@ class Katalog(m.Model):
     title = m.TextField(unique=True)
     content = m.TextField(unique=True)
     media = m.URLField(unique=True)
-    adress = m.TextField( null=True, blank=True)
+    adress = m.TextField(null=True, blank=True)
 
     class Meta:
-        verbose_name_plural ="katalog"
+        verbose_name_plural = "katalog"
         ordering = ["title"]
 
     def __repr__(self):

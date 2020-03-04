@@ -3,10 +3,10 @@ from django.db import models as m
 
 class Discount(m.Model):
     media = m.URLField(unique=True)
-    shop = m.TextField( unique=True)
+    shop = m.TextField(unique=True)
 
     class Meta:
-        verbose_name_plural ="Discount"
+        verbose_name_plural = "Discount"
         ordering = ["shop"]
 
     def __repr__(self):
