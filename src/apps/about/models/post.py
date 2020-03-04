@@ -1,5 +1,5 @@
 from django.db import models as m
-from about.models.post_kateg import Post_kateg
+from apps.about.models import Post_kateg
 
 
 class Post(m.Model):

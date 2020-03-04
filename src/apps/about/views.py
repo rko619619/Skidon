@@ -11,7 +11,7 @@ import requests
 
 class TelegramView(View):
     def post(self, request: HttpRequest, *_args, **_kw):
-        if not settings.TELEGRAM_SKIDONBOT_TOKEN:
+        if not settings.TELEGRAM_SKIDON_TOKEN:
             raise PermissionDenied("no bot token")
         payload = json.loads(request.body)
 

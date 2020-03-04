@@ -6,7 +6,7 @@ from dynaconf import settings as _settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).parent.parent.resolve()
-PROJECT_DIR = BASE_DIR / "core"
+PROJECT_DIR = BASE_DIR / "project"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -27,7 +27,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "about",
+    "apps.about",
+    "apps.api",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -40,12 +42,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "core.urls"
+ROOT_URLCONF = "project.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [f"{BASE_DIR}/core/templates"],
+        "DIRS": [f"{BASE_DIR}/project/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -58,7 +60,7 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = "core.wsgi.application"
+WSGI_APPLICATION = "project.wsgi.application"
 
 db_url = _settings.DATABASE_URL
 if _settings.ENV_FOR_DYNACONF == "heroku":
