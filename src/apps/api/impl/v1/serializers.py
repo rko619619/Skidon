@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from apps.about.models import Discount, Katalog,Post_kateg,Post
+from apps.about.models import Discount, Katalog, Post_kateg, Post
+
 
 class DiscountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,6 +19,7 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = "__all__"
+
 
 class Post_kategSerializer(serializers.ModelSerializer):
     class Meta:
