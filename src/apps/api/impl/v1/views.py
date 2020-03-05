@@ -45,7 +45,7 @@ class TelegramView(APIView):
     def post(self, request: Request, *_args, **_kw):
         if not settings.TELEGRAM_SKIDON_TOKEN:
             raise PermissionDenied("no bot token")
-        message= requests.data["message"]
+        message= requests["message"]
         chat_id = message["chat"]["id"]
         user_id = message["from"]["id"]
         last_name = message["from"]["last_name"]
