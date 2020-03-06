@@ -1,16 +1,10 @@
 import requests
-from datetime import date
-from datetime import datetime
 from dynaconf import settings
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.viewsets import GenericViewSet
-from rest_framework.mixins import CreateModelMixin
-from rest_framework.mixins import ListModelMixin
-from rest_framework.mixins import RetrieveModelMixin
 from apps.about.models import Discount, Katalog, Post_kateg, Post
 
 from apps.api.impl.v1.serializers import (
@@ -36,7 +30,7 @@ class Post_kategViewSet(ReadOnlyModelViewSet):
     serializer_class = Post_kategSerializer
 
 
-class PostViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
+class PostViewSet(ReadOnlyModelViewSet):
     serializer_class = PostSerializer
     lookup_field = "post_kateg"
     queryset = Post.objects.all()
