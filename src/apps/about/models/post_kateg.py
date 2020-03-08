@@ -13,4 +13,3 @@ class Post_kateg(m.Model):
 
     def __str__(self):
         return f"{self.name}: '{self.pk}'"
-        return f"Kate # {self.pk}: '{self.name}'"
