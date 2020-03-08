@@ -7,7 +7,7 @@ class Discount(m.Model):
 
     class Meta:
         verbose_name_plural = "Discount"
-        ordering = ["shop"]
+        ordering = ["media"]
 
     def __repr__(self):
         return f"Shop # {self.pk}: '{self.media}'"

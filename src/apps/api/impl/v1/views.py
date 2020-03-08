@@ -1,10 +1,13 @@
 import requests
 from dynaconf import settings
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.mixins import CreateModelMixin
+from rest_framework.mixins import ListModelMixin
+from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.viewsets import GenericViewSet
 from apps.about.models import Discount, Katalog, Post_kateg, Post
 
 from apps.api.impl.v1.serializers import (
@@ -15,22 +18,22 @@ from apps.api.impl.v1.serializers import (
 )
 
 
-class DiscountViewSet(ReadOnlyModelViewSet):
+class DiscountViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
     queryset = Discount.objects.all()
     serializer_class = DiscountSerializer
 
 
-class KatalogViewSet(ReadOnlyModelViewSet):
+class KatalogViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
     queryset = Katalog.objects.all()
     serializer_class = KatalogSerializer
 
 
-class Post_kategViewSet(ReadOnlyModelViewSet):
+class Post_kategViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
     queryset = Post_kateg.objects.all()
     serializer_class = Post_kategSerializer
 
 
-class PostViewSet(ReadOnlyModelViewSet):
+class PostViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
     serializer_class = PostSerializer
     lookup_field = "post_kateg"
     queryset = Post.objects.all()
