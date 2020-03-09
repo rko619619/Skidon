@@ -5,8 +5,8 @@ from apps.api.tests.base import ApiTest
 
 class Post_kategTest(ApiTest):
     def test_read(self):
-        name1 = self.create_post_kateg("name")
-        name2 = self.create_post_kateg("name")
+        name1 = self.create_post_kateg("name1")
+        name2 = self.create_post_kateg("name2")
         response = self.client.get("/api/v1/post_kateg/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -65,17 +65,17 @@ class Post_kategTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/post_kateg/{name.pk}/", data=data, **user_headers
+            f"/api/v1/post_kateg/{name.pk}/", data=data,content_type="application/json", **user_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.put(
-            f"/api/v1/post_kateg/{name.pk}/", data=data, **admin_headers
+            f"/api/v1/post_kateg/{name.pk}/", data=data,content_type="application/json", **admin_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/post_kateg/{name.pk}/", data=data, **admin_headers
+            f"/api/v1/post_kateg/{name.pk}/", data=data,content_type="application/json", **admin_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
