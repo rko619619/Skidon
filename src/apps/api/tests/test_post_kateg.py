@@ -28,7 +28,7 @@ class Post_kategTest(ApiTest):
         name = self.create_post_kateg("name")
 
         response = self.client.get(f"/api/v1/post_kateg/{name.pk}/")
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         payload = response.json()
         self.assertIsInstance(payload, dict)
@@ -47,20 +47,20 @@ class Post_kategTest(ApiTest):
                 }
 
         response = self.client.post("/api/v1/post_kateg/", data=data, **user_headers)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         response = self.client.post("/api/v1/post_kateg/", data=data, **admin_headers)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update(self):
         name = self.create_post_kateg("name")
 
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data = {"name":"name",}
+        data = {"name":"name"}
 
         response = self.client.put(
-            f"/api/v1/post_kateg/{name.pk}/", data=data, **user_headers
+            f"/api/v1/post_kateg/{name.pk}/", data=data, content_type="application/json", **user_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
