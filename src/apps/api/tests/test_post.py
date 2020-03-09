@@ -7,10 +7,9 @@ from apps.api.tests.base import ApiTest
 class PostApiTest(ApiTest):
     def test_read(self):
         at1 = date(year=2019, month=2, day=14)
-        at2 = date(year=2019, month=1, day=13)
         post_kateg=self.create_post_kateg("post_kateg")
-        ph1 =self.create_post(title="title", content="content",media="media", at=at1, post_kateg=post_kateg)
-        ph2 =self.create_post(title="title", content="content", media = "media", at=at2, post_kateg=post_kateg)
+        ph1 =self.create_post(name="name", content="content",media="media", at=at1, post_kateg=post_kateg)
+
 
         headers={"HTTP_AUTHORIZATION": self.admin_token}
         response = self.client.get("/api/v1/post/", **headers)
