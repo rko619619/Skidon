@@ -42,14 +42,17 @@ class Post_kategTest(ApiTest):
     def test_create(self):
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data = {
+        data1 = {
             "xxx": "abc"
                 }
+        data2 = {
+            "xxxx": "abcd"
+        }
 
-        response = self.client.post("/api/v1/post_kateg/", data=data,content_type="application/json", **user_headers)
+        response = self.client.post("/api/v1/post_kateg/", data=data1,content_type="application/json", **user_headers)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        response = self.client.post("/api/v1/post_kateg/", data=data,content_type="application/json", **admin_headers)
+        response = self.client.post("/api/v1/post_kateg/", data=data2,content_type="application/json", **admin_headers)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update(self):
