@@ -1,34 +1,36 @@
 from rest_framework import status
+from datetime import date
 
 from apps.api.tests.base import ApiTest
 
 
 class PostApiTest(ApiTest):
     def test_read(self):
-        title = self.create_post("title")
-        content = self.create_discount("content")
-        media = self.create_discount("media")
-        at = self.create_discount("at")
-        post_kateg=self.create_post("post_kateg")
+        at1 = date(year=2019, month=2, day=14)
+        at2 = date(year=2019, month=1, day=13)
+        post_kateg=self.create_post_kateg("post_kateg")
+        ph1 =self.create_post(title="title", content="content",media="media", at=at1, post_kateg=post_kateg)
+        ph2 =self.create_post(title="title", content="content", media = "media", at=at2, post_kateg=post_kateg)
 
-        response = self.client.get("/api/v1/post/")
+        headers={"HTTP_AUTHORIZATION": self.admin_token}
+        response = self.client.get("/api/v1/post/", **headers)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         payload = response.json()
-        self.assertEqual(len(payload), 5)
+        self.assertEqual(len(payload), 2)
 
-        for obj, post in zip(payload, (title, content, media, at, post_kateg)):
+        for obj, ph in zip(payload, (ph2,ph1)):
             self.assertTrue(obj)
             self.assertIsInstance(obj, dict)
 
             self.assertDictEqual(
                 obj,
-                {"id": post.pk,
-                 "title": post.title,
-                 "content": post.content,
-                 "media": post.media,
-                 "at": post.at,
-                 "post_kateg": post.post_kateg,
+                {"id": ph.pk,
+                 "title": ph.title,
+                 "content": ph.content,
+                 "media": ph.media,
+                 "at": ph.at.strftime("%Y-%m-%d"),
+                 "post_kateg": post_kateg.pk,
 
                  }
             )
