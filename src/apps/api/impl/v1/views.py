@@ -8,6 +8,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import ModelViewSet
+
 from apps.about.models import Discount, Katalog, Post_kateg, Post
 
 from apps.api.impl.v1.serializers import (
@@ -18,7 +20,7 @@ from apps.api.impl.v1.serializers import (
 )
 
 
-class DiscountViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
+class DiscountViewSet(ModelViewSet):
     queryset = Discount.objects.all()
     serializer_class = DiscountSerializer
 
@@ -28,7 +30,7 @@ class KatalogViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, Gener
     serializer_class = KatalogSerializer
 
 
-class Post_kategViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
+class Post_kategViewSet(ModelViewSet):
     queryset = Post_kateg.objects.all()
     serializer_class = Post_kategSerializer
 
