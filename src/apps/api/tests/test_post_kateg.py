@@ -5,15 +5,15 @@ from apps.api.tests.base import ApiTest
 
 class Post_kategTest(ApiTest):
     def test_read(self):
-        name = self.create_post_kateg("name")
-
+        name1 = self.create_post_kateg("name")
+        name2 = self.create_post_kateg("name")
         response = self.client.get("/api/v1/post_kateg/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         payload = response.json()
-        self.assertEqual(len(payload), 1)
+        self.assertEqual(len(payload), 2)
 
-        for obj, post_kateg in zip(payload,name):
+        for obj, post_kateg in zip(payload,(name1, name2)):
             self.assertTrue(obj)
             self.assertIsInstance(obj, dict)
 
@@ -28,7 +28,7 @@ class Post_kategTest(ApiTest):
         name = self.create_post_kateg("name")
 
         response = self.client.get(f"/api/v1/post_kateg/{name.pk}/")
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         payload = response.json()
         self.assertIsInstance(payload, dict)
