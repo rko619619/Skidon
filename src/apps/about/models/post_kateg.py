@@ -2,7 +2,7 @@ from django.db import models as m
 
 
 class Post_kateg(m.Model):
-    name = m.TextField(unique=True)
+    name = m.TextField()
 
     class Meta:
         verbose_name_plural = "Post_kateg"
