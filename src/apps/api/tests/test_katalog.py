@@ -16,7 +16,7 @@ class KatalogTest(ApiTest):
         payload = response.json()
         self.assertEqual(len(payload), 4)
 
-        for obj, katalog in zip(payload, (title, content, media, adress)):
+        for obj, katalog in zip(payload, (id, title, content, media, adress)):
             self.assertTrue(obj)
             self.assertIsInstance(obj, dict)
 
