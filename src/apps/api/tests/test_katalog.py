@@ -75,11 +75,11 @@ class KatalogTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update(self):
-        ph = self.create_katalog("fdsdfsd")
+        ph = self.create_katalog("name")
 
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data = {"xxx": "yyy"}
+        data = {"name": "name"}
 
         response = self.client.put(
             f"/api/v1/katalog/{ph.pk}/",
