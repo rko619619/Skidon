@@ -25,7 +25,9 @@ class DiscountViewSet(ModelViewSet):
     serializer_class = DiscountSerializer
 
 
-class KatalogViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
+class KatalogViewSet(
+    ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet
+):
     queryset = Katalog.objects.all()
     serializer_class = KatalogSerializer
 
@@ -39,6 +41,7 @@ class PostViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericV
     serializer_class = PostSerializer
     lookup_field = "post_kateg"
     queryset = Post.objects.all()
+
 
 class TelegramView(APIView):
     def post(self, request: Request, *_args, **_kw):

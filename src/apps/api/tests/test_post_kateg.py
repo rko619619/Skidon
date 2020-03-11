@@ -13,16 +13,11 @@ class Post_kategTest(ApiTest):
         payload = response.json()
         self.assertEqual(len(payload), 2)
 
-        for obj, post_kateg in zip(payload,(name1, name2)):
+        for obj, post_kateg in zip(payload, (name1, name2)):
             self.assertTrue(obj)
             self.assertIsInstance(obj, dict)
 
-            self.assertDictEqual(
-                obj,
-                {"id": post_kateg.pk,
-                 "name": post_kateg.name,
-                 },
-            )
+            self.assertDictEqual(obj, {"id": post_kateg.pk, "name": post_kateg.name})
 
     def test_retrieve(self):
         name = self.create_post_kateg("name")
@@ -33,26 +28,28 @@ class Post_kategTest(ApiTest):
         payload = response.json()
         self.assertIsInstance(payload, dict)
 
-        self.assertDictEqual(
-            payload, {"id": name.pk,
-                      "name": name.name,
-                      }
-        )
+        self.assertDictEqual(payload, {"id": name.pk, "name": name.name})
 
     def test_create(self):
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data1 = {
-            "xxx": "abc"
-                }
-        data2 = {
-            "xxxx": "abcd"
-        }
+        data1 = {"xxx": "abc"}
+        data2 = {"xxxx": "abcd"}
 
-        response = self.client.post("/api/v1/post_kateg/", data=data1,content_type="application/json", **user_headers)
+        response = self.client.post(
+            "/api/v1/post_kateg/",
+            data=data1,
+            content_type="application/json",
+            **user_headers,
+        )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        response = self.client.post("/api/v1/post_kateg/", data=data2,content_type="application/json", **admin_headers)
+        response = self.client.post(
+            "/api/v1/post_kateg/",
+            data=data2,
+            content_type="application/json",
+            **admin_headers,
+        )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update(self):
@@ -60,25 +57,37 @@ class Post_kategTest(ApiTest):
 
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data = {"name":"name"}
+        data = {"name": "name"}
 
         response = self.client.put(
-            f"/api/v1/post_kateg/{name.pk}/", data=data, content_type="application/json", **user_headers
+            f"/api/v1/post_kateg/{name.pk}/",
+            data=data,
+            content_type="application/json",
+            **user_headers,
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/post_kateg/{name.pk}/", data=data,content_type="application/json", **user_headers
+            f"/api/v1/post_kateg/{name.pk}/",
+            data=data,
+            content_type="application/json",
+            **user_headers,
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.put(
-            f"/api/v1/post_kateg/{name.pk}/", data=data,content_type="application/json", **admin_headers
+            f"/api/v1/post_kateg/{name.pk}/",
+            data=data,
+            content_type="application/json",
+            **admin_headers,
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/post_kateg/{name.pk}/", data=data,content_type="application/json", **admin_headers
+            f"/api/v1/post_kateg/{name.pk}/",
+            data=data,
+            content_type="application/json",
+            **admin_headers,
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 

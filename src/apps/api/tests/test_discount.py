@@ -19,11 +19,7 @@ class DiscountApiTest(ApiTest):
             self.assertIsInstance(obj, dict)
 
             self.assertDictEqual(
-                obj,
-                {"id": discount.pk,
-                 "media": discount.media,
-                 "shop": discount.shop,
-                 }
+                obj, {"id": discount.pk, "media": discount.media, "shop": discount.shop}
             )
 
     def test_retrieve(self):
@@ -36,18 +32,13 @@ class DiscountApiTest(ApiTest):
         self.assertIsInstance(payload, dict)
 
         self.assertDictEqual(
-            payload, {"id": media.pk,
-                      "media": media.media,
-                      "shop": media.shop,
-                      }
+            payload, {"id": media.pk, "media": media.media, "shop": media.shop}
         )
 
     def test_create(self):
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data = {"media": "media",
-                "shop": "shop",
-                }
+        data = {"media": "media", "shop": "shop"}
 
         response = self.client.post("/api/v1/discount/", data=data, **user_headers)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -60,9 +51,7 @@ class DiscountApiTest(ApiTest):
 
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data = {"media": "media",
-                "shop": "shop",
-                }
+        data = {"media": "media", "shop": "shop"}
 
         response = self.client.put(
             f"/api/v1/discount/{media.pk}/", data=data, **user_headers
@@ -89,9 +78,7 @@ class DiscountApiTest(ApiTest):
 
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data = {"media": "media",
-                "shop": "shop",
-                }
+        data = {"media": "media", "shop": "shop"}
 
         response = self.client.delete(
             f"/api/v1/discount/{media.pk}/", data=data, **user_headers

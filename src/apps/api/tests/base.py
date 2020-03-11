@@ -41,8 +41,8 @@ class ApiTest(TestCase):
 
         return post_kateg
 
-    def create_post(self,name , at: date, post_kateg: Post_kateg) -> Post:
-        post = Post(title=name,  media=name, at=at, post_kateg= post_kateg)
+    def create_post(self, name, at: date, post_kateg: Post_kateg) -> Post:
+        post = Post(title=name, media=name, at=at, post_kateg=post_kateg)
         post.save()
 
         return post
@@ -53,7 +53,7 @@ class ApiTest(TestCase):
 
         return discount
 
-    def create_katalog(self,name) -> Katalog:
+    def create_katalog(self, name) -> Katalog:
         katalog = Katalog(title=name, content=name, media=name, adress=name)
         katalog.save()
 

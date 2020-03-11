@@ -9,7 +9,7 @@ class Katalog(m.Model):
 
     class Meta:
         verbose_name_plural = "katalog"
-        ordering = ["id","title","content","media","adress"]
+        ordering = ["id", "title", "content", "media", "adress"]
 
     def __repr__(self):
         return f"Zavedeniya # {self.pk}: '{self.title}'"

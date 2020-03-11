@@ -5,13 +5,11 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('about', '1111_initial'),
-    ]
+    dependencies = [("about", "1111_initial")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='discount',
-            options={'ordering': ['media'], 'verbose_name_plural': 'Discount'},
-        ),
+            name="discount",
+            options={"ordering": ["media"], "verbose_name_plural": "Discount"},
+        )
     ]

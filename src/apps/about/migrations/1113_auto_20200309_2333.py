@@ -5,14 +5,10 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('about', '1112_auto_20200309_0103'),
-    ]
+    dependencies = [("about", "1112_auto_20200309_0103")]
 
     operations = [
         migrations.AlterField(
-            model_name='post_kateg',
-            name='name',
-            field=models.TextField(),
-        ),
+            model_name="post_kateg", name="name", field=models.TextField()
+        )
     ]

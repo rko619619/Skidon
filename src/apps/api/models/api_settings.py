@@ -5,9 +5,7 @@ User = get_user_model()
 
 
 class ApiSettings(m.Model):
-    user = m.OneToOneField(
-        User, on_delete=m.CASCADE, related_name="api_settings"
-    )
+    user = m.OneToOneField(User, on_delete=m.CASCADE, related_name="api_settings")
     token = m.TextField(null=True, blank=True)
 
     class Meta:

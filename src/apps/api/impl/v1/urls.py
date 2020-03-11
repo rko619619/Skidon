@@ -11,10 +11,10 @@ from apps.api.impl.v1.views import (
 from apps.api.impl.v1.views import TelegramView
 
 router = DefaultRouter()
-router.register('discount', DiscountViewSet)
-router.register('katalog', KatalogViewSet)
-router.register('post', PostViewSet)
-router.register('post_kateg', Post_kategViewSet)
+router.register("discount", DiscountViewSet)
+router.register("katalog", KatalogViewSet)
+router.register("post", PostViewSet)
+router.register("post_kateg", Post_kategViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

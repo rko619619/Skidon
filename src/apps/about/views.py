@@ -4,5 +4,5 @@ from apps.about.models import Katalog
 
 
 class AboutView(ListView):
-    model=Katalog
+    model = Katalog
     template_name = "about/index.html"
