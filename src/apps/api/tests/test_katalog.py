@@ -88,7 +88,7 @@ class KatalogTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/katalog/{media.pk}/", data=data, **admin_headers
+            f"/api/v1/katalog/{media.pk}/", data=data,content_type="application/json", **admin_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
