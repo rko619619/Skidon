@@ -25,9 +25,7 @@ class DiscountViewSet(ModelViewSet):
     serializer_class = DiscountSerializer
 
 
-class KatalogViewSet(
-    ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet
-):
+class KatalogViewSet(ModelViewSet):
     queryset = Katalog.objects.all()
     serializer_class = KatalogSerializer
 
@@ -37,7 +35,7 @@ class Post_kategViewSet(ModelViewSet):
     serializer_class = Post_kategSerializer
 
 
-class PostViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
+class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
     lookup_field = "post_kateg"
     queryset = Post.objects.all()
