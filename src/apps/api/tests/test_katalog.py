@@ -79,7 +79,7 @@ class KatalogTest(ApiTest):
 
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data = {"adress": "adress"}
+        data = {"xxx": "yyy"}
 
         response = self.client.put(
             f"/api/v1/katalog/{ph.pk}/",
