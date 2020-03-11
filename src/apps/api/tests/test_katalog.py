@@ -11,7 +11,7 @@ class KatalogTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         payload = response.json()
-        self.assertEqual(len(payload), 4)
+        self.assertEqual(len(payload), 2)
 
         for obj, katalog in zip(payload, (katalog1,katalog2)):
             self.assertTrue(obj)
@@ -54,11 +54,11 @@ class KatalogTest(ApiTest):
             "adress":"adress",
                 }
 
-        response = self.client.post("/api/v1/katalog/", data=data, **user_headers)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.post("/api/v1/katalog/", data=data,content_type="application/json", **user_headers)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        response = self.client.post("/api/v1/katalog/", data=data, **admin_headers)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.post("/api/v1/katalog/", data=data,content_type="application/json", **admin_headers)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update(self):
         media = self.create_discount("media")
@@ -73,17 +73,17 @@ class KatalogTest(ApiTest):
         }
 
         response = self.client.put(
-            f"/api/v1/katalog/{media.pk}/", data=data, **user_headers
+            f"/api/v1/katalog/{media.pk}/", data=data,content_type="application/json", **user_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/katalog/{media.pk}/", data=data, **user_headers
+            f"/api/v1/katalog/{media.pk}/", data=data,content_type="application/json", **user_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.put(
-            f"/api/v1/katalog/{media.pk}/", data=data, **admin_headers
+            f"/api/v1/katalog/{media.pk}/", data=data,content_type="application/json", **admin_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
