@@ -75,7 +75,7 @@ class KatalogTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update(self):
-        ph = self.create_katalog("fdsdfsd"        )
+        ph = self.create_katalog("fdsdfsd")
 
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
