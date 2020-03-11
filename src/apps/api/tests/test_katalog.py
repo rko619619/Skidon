@@ -5,18 +5,15 @@ from apps.api.tests.base import ApiTest
 
 class KatalogTest(ApiTest):
     def test_read(self):
-        title = self.create_katalog("title")
-        content = self.create_katalog("content")
-        media = self.create_katalog("media")
-        adress = self.create_katalog("adress")
-
+        katalog1 = self.create_katalog("title")
+        katalog2 = self.create_katalog("media")
         response = self.client.get("/api/v1/katalog/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         payload = response.json()
         self.assertEqual(len(payload), 4)
 
-        for obj, katalog in zip(payload, (title, content, media, adress)):
+        for obj, katalog in zip(payload, (katalog1,katalog2)):
             self.assertTrue(obj)
             self.assertIsInstance(obj, dict)
 
