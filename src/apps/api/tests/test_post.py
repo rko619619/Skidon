@@ -40,8 +40,9 @@ class PostApiTest(ApiTest):
 
         at1 = date(year=2019, month=2, day=14)
         post_kateg1 = self.create_post_kateg("post_kateg")
-        title = self.create_post(name="title", at=at1, post_kateg=post_kateg1)
-        response = self.client.get(f"/api/v1/post/{title.pk}/")
+        ph = self.create_post(name="title", at=at1, post_kateg=post_kateg1)
+
+        response = self.client.get(f"/api/v1/post/{ph.pk}/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         payload = response.json()
@@ -50,12 +51,12 @@ class PostApiTest(ApiTest):
         self.assertDictEqual(
             payload,
             {
-                "id": title.pk,
-                "title": title.media,
-                "content": title.content,
-                "media": title.media,
-                "at": title.at,
-                "post_kateg": title.post_kateg,
+                "id": ph.pk,
+                "title": ph.media,
+                "content": ph.content,
+                "media": ph.media,
+                "at": ph.at.strftime("%Y-%m-%d"),
+                "post_kateg": ph.post_kateg,
             },
         )
 
