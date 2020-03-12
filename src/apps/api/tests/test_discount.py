@@ -41,11 +41,11 @@ class DiscountApiTest(ApiTest):
         data1 = {"xxx": "abc"}
         data2 = {"xxxx": "abcd"}
 
-        response = self.client.post("/api/v1/discount/", data=data1, **user_headers)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.post("/api/v1/discount/", data=data1,content_type="application/json", **user_headers)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        response = self.client.post("/api/v1/discount/", data=data2, **admin_headers)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.post("/api/v1/discount/", data=data2,content_type="application/json", **admin_headers)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update(self):
         media = self.create_discount("media")
@@ -55,22 +55,22 @@ class DiscountApiTest(ApiTest):
         data = {"media": "media", "shop": "shop"}
 
         response = self.client.put(
-            f"/api/v1/discount/{media.pk}/", data=data, **user_headers
+            f"/api/v1/discount/{media.pk}/", data=data, content_type="application/json", **user_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/discount/{media.pk}/", data=data, **user_headers
+            f"/api/v1/discount/{media.pk}/", data=data, content_type="application/json", **user_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.put(
-            f"/api/v1/discount/{media.pk}/", data=data, **admin_headers
+            f"/api/v1/discount/{media.pk}/", data=data, content_type="application/json", **admin_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/discount/{media.pk}/", data=data, **admin_headers
+            f"/api/v1/discount/{media.pk}/", data=data, content_type="application/json", **admin_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 

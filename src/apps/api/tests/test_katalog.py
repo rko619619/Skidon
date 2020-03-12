@@ -71,14 +71,14 @@ class KatalogTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update(self):
-        title = self.create_katalog("title")
+        ph1 = self.create_katalog("ph1")
 
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
         data = {"title": "title"}
 
         response = self.client.put(
-            f"/api/v1/katalog/{title.pk}/",
+            f"/api/v1/katalog/{ph1.pk}/",
             data=data,
             content_type="application/json",
             **user_headers,
@@ -86,7 +86,7 @@ class KatalogTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/katalog/{title.pk}/",
+            f"/api/v1/katalog/{ph1.pk}/",
             data=data,
             content_type="application/json",
             **user_headers,
@@ -94,7 +94,7 @@ class KatalogTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.put(
-            f"/api/v1/katalog/{title.pk}/",
+            f"/api/v1/katalog/{ph1.pk}/",
             data=data,
             content_type="application/json",
             **admin_headers,
@@ -102,7 +102,7 @@ class KatalogTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/katalog/{title.pk}/",
+            f"/api/v1/katalog/{ph1.pk}/",
             data=data,
             content_type="application/json",
             **admin_headers,
