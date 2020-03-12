@@ -95,7 +95,7 @@ class Post_kategTest(ApiTest):
         name1 = self.create_discount(name="name1")
 
         response = self.client.delete(f"/api/v1/katalog/{name1.pk}/")
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
         response = self.client.delete(f"/api/v1/katalog/{name1.pk}/")
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
