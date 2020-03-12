@@ -39,8 +39,7 @@ class PostApiTest(ApiTest):
     def test_retrieve(self):
 
         at1 = date(year=2019, month=2, day=14)
-        post_kateg1 = self.create_post_kateg("post_kateg")
-        ph = self.create_post(name="title", at=at1, post_kateg=post_kateg1)
+        ph = self.create_post(name="title", at=at1, post_kateg="post_kateg1")
 
         response = self.client.get(f"/api/v1/post/{ph.pk}/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -67,7 +66,7 @@ class PostApiTest(ApiTest):
             "title": "title",
             "content": "content",
             "media": "media",
-            "st": "st",
+            "at": "at",
             "post_kateg": "post_kateg",
         }
 

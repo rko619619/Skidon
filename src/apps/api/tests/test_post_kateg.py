@@ -92,10 +92,13 @@ class Post_kategTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete(self):
-        name1 = self.create_discount(name="name1")
+        name1 = self.create_post_kateg("name1")
+        data = {"name1": "name1"}
+        user_headers = {"HTTP_AUTHORIZATION": self.user_token}
+        admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
 
-        response = self.client.delete(f"/api/v1/katalog/{name1.pk}/")
+        response = self.client.delete(f"/api/v1/katalog/{name1.pk}/", data=data, **user_headers)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        response = self.client.delete(f"/api/v1/katalog/{name1.pk}/")
+        response = self.client.delete(f"/api/v1/katalog/{name1.pk}/" , data=data, **user_headers)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
