@@ -2,8 +2,8 @@ from django.db import models as m
 
 
 class Discount(m.Model):
-    media = m.URLField(unique=True)
-    shop = m.TextField(unique=True)
+    media = m.URLField()
+    shop = m.TextField()
 
     class Meta:
         verbose_name_plural = "Discount"
