@@ -42,7 +42,7 @@ class ApiTest(TestCase):
         return post_kateg
 
     def create_post(self, name, at: date, post_kateg: Post_kateg) -> Post:
-        post = Post(title=name, media=name, at=at, post_kateg=post_kateg)
+        post = Post(title=name, content=name, media=name, at=at, post_kateg=post_kateg)
         post.save()
 
         return post
