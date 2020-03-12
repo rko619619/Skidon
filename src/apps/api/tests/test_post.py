@@ -77,7 +77,9 @@ class PostApiTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update(self):
-        title = self.create_post("title")
+        at1 = date(year=2019, month=2, day=14)
+        post_kateg1 = self.create_post_kateg("post_kateg1")
+        ph1 = self.create_post(name="name1", at=at1, post_kateg=post_kateg1)
 
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
@@ -90,27 +92,29 @@ class PostApiTest(ApiTest):
         }
 
         response = self.client.put(
-            f"/api/v1/post/{title.pk}/", data=data, **user_headers
+            f"/api/v1/post/{ph1.pk}/", data=data,content_type="application/json", **user_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/post/{title.pk}/", data=data, **user_headers
+            f"/api/v1/post/{ph1.pk}/",content_type="application/json", data=data, **user_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.put(
-            f"/api/v1/post/{title.pk}/", data=data, **admin_headers
+            f"/api/v1/post/{ph1.pk}/", data=data,content_type="application/json", **admin_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.patch(
-            f"/api/v1/post/{title.pk}/", data=data, **admin_headers
+            f"/api/v1/post/{ph1.pk}/", data=data,content_type="application/json", **admin_headers
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete(self):
-        title = self.create_post("title")
+        at1 = date(year=2019, month=2, day=14)
+        post_kateg1 = self.create_post_kateg("post_kateg1")
+        ph1 = self.create_post(name="name1", at=at1, post_kateg=post_kateg1)
 
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
@@ -118,12 +122,12 @@ class PostApiTest(ApiTest):
             "title": "title",
             "content": "content",
             "media": "media",
-            "st": "st",
+            "at": "at",
             "post_kateg": "post_kateg",
         }
 
-        response = self.client.delete(f"/api/v1/post/{title.pk}/")
+        response = self.client.delete(f"/api/v1/post/{ph1.pk}/")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        response = self.client.delete(f"/api/v1/post/{title.pk}/")
+        response = self.client.delete(f"/api/v1/post/{ph1.pk}/")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

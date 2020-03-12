@@ -51,16 +51,12 @@ class KatalogTest(ApiTest):
     def test_create(self):
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data = {
-            "title": "title",
-            "content": "content",
-            "media": "media",
-            "adress": "adress",
-        }
+        data1 = {"xxx": "abc"}
+        data2 = {"xxxx": "abcd"}
 
         response = self.client.post(
             "/api/v1/katalog/",
-            data=data,
+            data=data1,
             content_type="application/json",
             **user_headers,
         )
@@ -68,7 +64,7 @@ class KatalogTest(ApiTest):
 
         response = self.client.post(
             "/api/v1/katalog/",
-            data=data,
+            data=data2,
             content_type="application/json",
             **admin_headers,
         )
