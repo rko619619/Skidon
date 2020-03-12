@@ -84,9 +84,9 @@ class DiscountApiTest(ApiTest):
         response = self.client.delete(
             f"/api/v1/discount/{media.pk}/", data=data, **user_headers
         )
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.delete(
             f"/api/v1/discount/{media.pk}/", data=data, **admin_headers
         )
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
