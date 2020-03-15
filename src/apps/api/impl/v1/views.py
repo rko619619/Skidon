@@ -8,6 +8,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import ModelViewSet
+
 from apps.about.models import Discount, Katalog, Post_kateg, Post
 
 from apps.api.impl.v1.serializers import (
@@ -18,25 +20,25 @@ from apps.api.impl.v1.serializers import (
 )
 
 
-class DiscountViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
+class DiscountViewSet(ModelViewSet):
     queryset = Discount.objects.all()
     serializer_class = DiscountSerializer
 
 
-class KatalogViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
+class KatalogViewSet(ModelViewSet):
     queryset = Katalog.objects.all()
     serializer_class = KatalogSerializer
 
 
-class Post_kategViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
+class Post_kategViewSet(ModelViewSet):
     queryset = Post_kateg.objects.all()
     serializer_class = Post_kategSerializer
 
 
-class PostViewSet(ListModelMixin, RetrieveModelMixin, CreateModelMixin, GenericViewSet):
+class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
-    lookup_field = "post_kateg"
     queryset = Post.objects.all()
+
 
 class TelegramView(APIView):
     def post(self, request: Request, *_args, **_kw):
