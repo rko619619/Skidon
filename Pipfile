@@ -11,10 +11,7 @@ pudb = "*"
 [packages]
 dj-database-url = "*"
 django = "*"
-dynaconf = {extras = ["yaml"],version = "*"}
-psycopg2 = "*"
-requests = "*"
 djangorestframework = "*"
-
-[requires]
-python_version = "3.7"
+dynaconf = {extras = ["yaml"],version = "*"}
+psycopg2-binary = "*"
+requests = "*"
