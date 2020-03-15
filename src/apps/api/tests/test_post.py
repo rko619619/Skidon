@@ -1,8 +1,6 @@
-from datetime import datetime
-from unittest import skip
-
 from rest_framework import status
 from datetime import date
+from typing import Optional
 
 from apps.api.tests.base import ApiTest
 
@@ -62,22 +60,43 @@ class PostApiTest(ApiTest):
             },
         )
 
-    @skip
     def test_create(self):
+        at1 = date(year=2019, month=2, day=14)
+        post_kateg1 = self.create_post_kateg("post_kateg1")
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data = {
-            "title": "title",
+        data1 = {
+            "at": at1,
             "content": "content",
-            "media": "media",
-            "at": "at",
-            "post_kateg": "post_kateg",
+            "media": "http://media.com",
+            "post_kateg": post_kateg1.pk,
+            "title": "title",
         }
 
-        response = self.client.post("/api/v1/post/", data=data, **user_headers)
+        at2 = date(year=2019, month=2, day=14)
+        post_kateg2 = self.create_post_kateg("post_kateg2")
+        data2 = {
+            "at": at2,
+            "content": "content1",
+            "media": "http://mediaafs.com",
+            "post_kateg": post_kateg2.pk,
+            "title": "title1",
+        }
+
+        response = self.client.post(
+            "/api/v1/post/",
+            data=data1,
+            content_type="application/json",
+            **user_headers
+        )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        response = self.client.post("/api/v1/post/", data=data, **admin_headers)
+        response = self.client.post(
+            "/api/v1/post/",
+            data=data2,
+            content_type="application/json",
+            **admin_headers
+        )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update(self):
@@ -127,24 +146,22 @@ class PostApiTest(ApiTest):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    @skip
     def test_delete(self):
+        self._delete_as(self.user_token)
+        self._delete_as(self.admin_token)
+
+    def _delete_as(self, token: Optional[str] = None):
         at1 = date(year=2019, month=2, day=14)
         post_kateg1 = self.create_post_kateg("post_kateg1")
         ph1 = self.create_post(name="name1", at=at1, post_kateg=post_kateg1)
+        url = f"/api/v1/post/{ph1.pk}/"
 
-        user_headers = {"HTTP_AUTHORIZATION": self.user_token}
-        admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data = {
-            "title": "title",
-            "content": "content",
-            "media": "media",
-            "at": "at",
-            "post_kateg": "post_kateg",
-        }
+        headers = {}
+        if token:
+            headers["HTTP_AUTHORIZATION"] = token
 
-        response = self.client.delete(f"/api/v1/post/{ph1.pk}/")
+        response = self.client.delete(url, **headers)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        response = self.client.delete(f"/api/v1/post/{ph1.pk}/")
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        response = self.client.delete(url, **headers)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

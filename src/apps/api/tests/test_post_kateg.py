@@ -1,5 +1,7 @@
 from rest_framework import status
 
+from typing import Optional
+
 from apps.api.tests.base import ApiTest
 
 
@@ -33,8 +35,7 @@ class Post_kategTest(ApiTest):
     def test_create(self):
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data1 = {"xxx": "abc"}
-        data2 = {"xxxx": "abcd"}
+        data1 = {"name": "name"}
 
         response = self.client.post(
             "/api/v1/post_kateg/",
@@ -46,7 +47,7 @@ class Post_kategTest(ApiTest):
 
         response = self.client.post(
             "/api/v1/post_kateg/",
-            data=data2,
+            data=data1,
             content_type="application/json",
             **admin_headers,
         )
@@ -92,17 +93,19 @@ class Post_kategTest(ApiTest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete(self):
-        name1 = self.create_post_kateg("name1")
-        data = {"name1": "name1"}
-        user_headers = {"HTTP_AUTHORIZATION": self.user_token}
-        admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
+        self._delete_as(self.user_token)
+        self._delete_as(self.admin_token)
 
-        response = self.client.delete(
-            f"/api/v1/katalog/{name1.pk}/", data=data, **admin_headers
-        )
+    def _delete_as(self, token: Optional[str] = None):
+        name = self.create_post_kateg("name")
+        url = f"/api/v1/post_kateg/{name.pk}/"
+
+        headers = {}
+        if token:
+            headers["HTTP_AUTHORIZATION"] = token
+
+        response = self.client.delete(url, **headers)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        response = self.client.delete(
-            f"/api/v1/katalog/{name1.pk}/", data=data, **user_headers
-        )
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        response = self.client.delete(url, **headers)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
