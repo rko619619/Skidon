@@ -84,10 +84,7 @@ class PostApiTest(ApiTest):
         }
 
         response = self.client.post(
-            "/api/v1/post/",
-            data=data1,
-            content_type="application/json",
-            **user_headers
+            "/api/v1/post/", data=data1, content_type="application/json", **user_headers
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -95,7 +92,7 @@ class PostApiTest(ApiTest):
             "/api/v1/post/",
             data=data2,
             content_type="application/json",
-            **admin_headers
+            **admin_headers,
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 

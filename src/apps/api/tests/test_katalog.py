@@ -54,10 +54,10 @@ class KatalogTest(ApiTest):
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
         data1 = {
-            "title":"title",
-            "content":"content",
-            "media":"http://test.test/test1",
-            "adress":"adress",
+            "title": "title",
+            "content": "content",
+            "media": "http://test.test/test1",
+            "adress": "adress",
         }
         data2 = {
             "title": "title1",

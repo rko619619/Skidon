@@ -5,9 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ("about", "1113_auto_20200309_2333"),
-    ]
+    dependencies = [("about", "1113_auto_20200309_2333")]
 
     operations = [
         migrations.AlterModelOptions(
@@ -18,9 +16,9 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.AlterField(
-            model_name="discount", name="media", field=models.URLField(),
+            model_name="discount", name="media", field=models.URLField()
         ),
         migrations.AlterField(
-            model_name="discount", name="shop", field=models.TextField(),
+            model_name="discount", name="shop", field=models.TextField()
         ),
     ]
