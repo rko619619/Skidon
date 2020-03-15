@@ -121,10 +121,8 @@ class KatalogTest(ApiTest):
             "adress": "adress",
         }
 
-        response = self.client.delete(
-            f"/api/v1/katalog/{media.pk}/")
+        response = self.client.delete(f"/api/v1/katalog/{media.pk}/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        response = self.client.delete(
-            f"/api/v1/katalog/{media.pk}/",)
+        response = self.client.delete(f"/api/v1/katalog/{media.pk}/",)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
