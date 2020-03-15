@@ -3,7 +3,6 @@ from apps.about.models import Post_kateg
 
 
 class Post(m.Model):
-
     title = m.TextField(unique=True)
     content = m.TextField(unique=True)
     media = m.URLField(unique=True)

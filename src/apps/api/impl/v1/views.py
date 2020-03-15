@@ -37,7 +37,6 @@ class Post_kategViewSet(ModelViewSet):
 
 class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
-    lookup_field = "post_kateg"
     queryset = Post.objects.all()
 
 
