@@ -38,13 +38,12 @@ class DiscountApiTest(ApiTest):
     def test_create(self):
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data1 = {"xxx": "abc"}
-        data2 = {"xxxx": "abcd"}
+        data1 = {"media": "http://test.test/test1", "shop": "shop1"}
 
         response = self.client.post("/api/v1/discount/", data=data1,content_type="application/json", **user_headers)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        response = self.client.post("/api/v1/discount/", data=data2,content_type="application/json", **admin_headers)
+        response = self.client.post("/api/v1/discount/", data=data1,content_type="application/json", **admin_headers)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update(self):
