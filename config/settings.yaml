@@ -26,6 +26,3 @@ travis:
     - localhost
   SECRET_KEY: "xxx"
   DATABASE_URL: "postgresql://postgres@localhost:5432/skidon"
-
-
-

@@ -6,22 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('about', '1113_auto_20200309_2333'),
+        ("about", "1113_auto_20200309_2333"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='katalog',
-            options={'ordering': ['id', 'title', 'content', 'media', 'adress'], 'verbose_name_plural': 'katalog'},
+            name="katalog",
+            options={
+                "ordering": ["id", "title", "content", "media", "adress"],
+                "verbose_name_plural": "katalog",
+            },
         ),
         migrations.AlterField(
-            model_name='discount',
-            name='media',
-            field=models.URLField(),
+            model_name="discount", name="media", field=models.URLField(),
         ),
         migrations.AlterField(
-            model_name='discount',
-            name='shop',
-            field=models.TextField(),
+            model_name="discount", name="shop", field=models.TextField(),
         ),
     ]
