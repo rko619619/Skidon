@@ -42,7 +42,7 @@ class PostViewSet(ModelViewSet):
 
 class TelegramView(APIView):
     def post(self, request: Request, *_args, **_kw):
-        if not settings.TELEGRAM_SKIDONBOT_TOKEN or not request:
+        if not settings.SKIDON_TELEGRAM_SKIDON_TOKEN or not request:
             raise PermissionDenied("invalid bot configuration")
 
         try:
@@ -93,7 +93,7 @@ class TelegramView(APIView):
         return discounts_post
 
     def bot_respond(self, chat, reply, message_id=None, html=False):
-        bot_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMessage"
+        bot_url = f"https://api.telegram.org/bot{settings.SKIDON_TELEGRAM_SKIDON_TOKEN}/sendMessage"
 
         payload = {
             "chat_id": chat["id"],
