@@ -64,7 +64,7 @@ class TelegramView(APIView):
         kw = {}
 
         if text in ("/actual", "Актуальные"):
-            bot_response = "Актуальные цены:\n\n" + "\n".join(self.get_actual_prices())
+            bot_response = "Актуальные цены:\n\n" + "\n".join(self.get_actual_prices()+"\n"+"\n"+"\n")
         else:
             bot_response = ""
             if user.get("username"):
@@ -87,7 +87,7 @@ class TelegramView(APIView):
 
 
         for dis in discounts:
-            discount = f"{dis.media}:{dis.shop}"
+            discount = f"{dis.media}\n\n\n{dis.shop}"
             discounts_post.append(discount)
 
         return discounts_post
