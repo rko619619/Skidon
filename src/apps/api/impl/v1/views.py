@@ -88,7 +88,9 @@ class TelegramView(APIView):
 
         for dis in discounts:
             discount = f"{dis.media}\n\n\n{dis.shop}"
-            return discount
+            discounts_post.append(discount)
+
+            return discounts_post
 
     def bot_respond(self, chat, reply, message_id=None, html=False):
         bot_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMessage"
