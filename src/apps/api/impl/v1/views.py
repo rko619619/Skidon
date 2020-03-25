@@ -87,7 +87,7 @@ class TelegramView(APIView):
 
 
         for dis in discounts:
-            discount = f"{discounts.media}: {discounts.shop}"
+            discount = f"{dis.media}: {dis.shop}"
             discount.append(discounts_post)
 
         return discounts_post
