@@ -100,9 +100,9 @@ class TelegramView(APIView):
             "text": reply,
             "reply_markup": {
                 "keyboard": [
-                    [{"text": "Актуальные"}],
-                    [{"text": "Прогноз на месяц"}],
-                    [{"text": "Прогноз на три"}, {"text": "Прогноз на год"}],
+                    [{"text": "Скидки"}],
+                    [{"text": "Новости о еде"}],
+                    [{"text": "Следуюшая"}, {"text": "Предыдущая"}],
                 ],
                 "resize_keyboard": True,
             },
