@@ -1,23 +1,21 @@
+import io
+
 import requests
 from dynaconf import settings
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.mixins import CreateModelMixin
-from rest_framework.mixins import ListModelMixin
-from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import GenericViewSet
 from rest_framework.viewsets import ModelViewSet
 
-from apps.about.models import Discount, Katalog, Post_kateg, Post
-
-from apps.api.impl.v1.serializers import (
-    DiscountSerializer,
-    KatalogSerializer,
-    Post_kategSerializer,
-    PostSerializer,
-)
+from apps.about.models import Discount
+from apps.about.models import Katalog
+from apps.about.models import Post
+from apps.about.models import Post_kateg
+from apps.api.impl.v1.serializers import DiscountSerializer
+from apps.api.impl.v1.serializers import KatalogSerializer
+from apps.api.impl.v1.serializers import PostSerializer
+from apps.api.impl.v1.serializers import Post_kategSerializer
 
 
 class DiscountViewSet(ModelViewSet):
@@ -64,7 +62,9 @@ class TelegramView(APIView):
         kw = {}
 
         if text in ("/actual", "Актуальные"):
-            bot_response = "Актуальные цены:\n\n" + "\n".join(self.get_actual_prices())
+            captions = self.get_captions()
+            for caption in captions:
+                self.bot_respond_with_photo(chat, caption)
         else:
             bot_response = ""
             if user.get("username"):
@@ -80,17 +80,26 @@ class TelegramView(APIView):
         print(tg_resp)
         return True
 
-    def get_actual_prices(self):
+    def get_captions(self):
         discounts = Discount.objects.all()
 
         discounts_post = []
 
-
         for dis in discounts:
-            discount = f"{dis.media}\n\n\n{dis.shop}"
-            discounts_post.append(discount)
+            shop = dis.shop
+            photo = self.download_photo(dis.media)
+            discounts_post.append((shop, photo))
+        return discounts_post
 
-            return discounts_post
+    def dowload_photo(self, file_url):
+
+        response = requests.get(file_url)
+
+        image = io.BytesIO()
+        image.write(response.content)
+        image.seek(0)
+
+        return image
 
     def bot_respond(self, chat, reply, message_id=None, html=False):
         bot_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMessage"
@@ -115,5 +124,19 @@ class TelegramView(APIView):
             payload["reply_to_message_id"] = message_id
 
         tg_resp = requests.post(bot_url, json=payload)
+
+        return tg_resp
+
+    def bot_respond_with_photo(self, chat, caption):
+        bot_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
+
+        payload = {
+            "chat_id": chat["id"],
+            "caption": caption[0],
+        }
+
+        files = {"photo": {"InputFile": caption[1]}}
+
+        tg_resp = requests.post(bot_url, json=payload, files=files)
 
         return tg_resp
