@@ -76,7 +76,8 @@ class TelegramView(APIView):
 
             bot_response += "! За слова ответишь?"
             kw["message_id"] = message["message_id"]
-
+        tg_resp = self.bot_respond(chat, bot_response, **kw)
+        print(tg_resp)
         return True
 
     def get_actual_prices(self):
@@ -90,3 +91,29 @@ class TelegramView(APIView):
             discount.append(discounts_post)
 
         return discounts_post
+
+    def bot_respond(self, chat, reply, message_id=None, html=False):
+        bot_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMessage"
+
+        payload = {
+            "chat_id": chat["id"],
+            "text": reply,
+            "reply_markup": {
+                "keyboard": [
+                    [{"text": "Актуальные"}],
+                    [{"text": "Прогноз на месяц"}],
+                    [{"text": "Прогноз на три"}, {"text": "Прогноз на год"}],
+                ],
+                "resize_keyboard": True,
+            },
+        }
+
+        if html:
+            payload["parse_mode"] = "HTML"
+
+        if message_id:
+            payload["reply_to_message_id"] = message_id
+
+        tg_resp = requests.post(bot_url, json=payload)
+
+        return tg_resp
