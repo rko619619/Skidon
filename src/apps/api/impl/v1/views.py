@@ -92,7 +92,7 @@ class TelegramView(APIView):
             discounts_post.append((shop, photo))
         return discounts_post
 
-    def dowload_photo(self, file_url):
+    def download_photo(self, file_url):
 
         response = requests.get(file_url)
 
