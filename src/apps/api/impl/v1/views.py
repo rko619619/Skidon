@@ -45,7 +45,8 @@ class TelegramView(APIView):
 
         try:
             ok = self._do_post(request)
-        except Exception:
+        except Exception as err:
+            print("ERROR!!!!!!!", err)
             ok = False
 
         return Response(data={"ok": ok}, content_type="application/json")
@@ -64,7 +65,6 @@ class TelegramView(APIView):
         if text in ("/actual", "Актуальные"):
             captions = self.get_captions()
             for caption in captions:
-                print("XXX", caption)
                 self.bot_respond_with_photo(chat, caption)
         else:
             bot_response = ""
@@ -136,7 +136,7 @@ class TelegramView(APIView):
             "caption": caption[0],
         }
 
-        files = {"photo": {"InputFile": caption[1]}}
+        files = {"photo": ("InputFile", caption[1])}
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
