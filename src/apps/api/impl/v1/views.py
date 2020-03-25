@@ -42,24 +42,51 @@ class PostViewSet(ModelViewSet):
 
 class TelegramView(APIView):
     def post(self, request: Request, *_args, **_kw):
-        if not settings.TELEGRAM_SKIDON_TOKEN:
-            raise PermissionDenied("no bot token")
+        if not settings.TELEGRAM_BENZAKBOT_TOKEN or not request:
+            raise PermissionDenied("invalid bot configuration")
+
+        try:
+            ok = self._do_post(request)
+        except Exception:
+            ok = False
+
+        return Response(data={"ok": ok}, content_type="application/json")
+
+    def _do_post(self, request):
+        if "message" not in request.data:
+            return False
         message = request.data["message"]
-        chat_id = message["chat"]["id"]
-        user_id = message["from"]["id"]
-        last_name = message["from"]["last_name"]
+        chat = message["chat"]
+        user = message["from"]
+        text = message.get("text")
+        if not text:
+            return False
+        kw = {}
 
-        tg_url = (
-            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDON_TOKEN}/sendMessage"
-        )
-        tg_resp = requests.post(tg_url, json={"chat_id": chat_id, "text": last_name})
+        if text in ("/actual", "Актуальные"):
+            bot_response = "Актуальные цены:\n\n" + "\n".join(self.get_actual_prices())
+        else:
+            bot_response = ""
+            if user.get("username"):
+                bot_response += "@" + user["username"]
+            elif user.get("first_name"):
+                bot_response += user["first_name"]
+                if user.get("last_name"):
+                    bot_response += " " + user["last_name"]
 
-        return Response(
-            data={
-                "chat_id": chat_id,
-                "message": message,
-                "tg": str(tg_resp),
-                "user_id": user_id,
-            },
-            # content_type="application/json",
-        )
+            bot_response += "! За слова ответишь?"
+            kw["message_id"] = message["message_id"]
+
+        return True
+
+    def get_actual_prices(self):
+        discounts = Discount.objects.all()
+
+        discounts_post = []
+
+
+        for dis in discounts:
+            discount = f"{discounts.media}: {discounts.shop}"
+            discount.append(discounts_post)
+
+        return discounts_post
