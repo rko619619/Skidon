@@ -64,6 +64,7 @@ class TelegramView(APIView):
         if text in ("/actual", "Актуальные"):
             captions = self.get_captions()
             for caption in captions:
+                print("XXX", caption)
                 self.bot_respond_with_photo(chat, caption)
         else:
             bot_response = ""
@@ -137,6 +138,6 @@ class TelegramView(APIView):
 
         files = {"photo": {"InputFile": caption[1]}}
 
-        tg_resp = requests.post(bot_url, json=payload, files=files)
+        tg_resp = requests.post(bot_url, data=payload, files=files)
 
         return tg_resp
