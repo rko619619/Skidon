@@ -2,12 +2,12 @@ from django.db import models as m
 
 
 class Discount(m.Model):
-    shop = m.TextField()
+    shop = m.TextField(blank=True)
     name_of_discount = m.TextField(unique=True)
-    text = m.TextField()
-    price = m.TextField()
-    additional_media = m.URLField()
-    media = m.URLField()
+    text = m.TextField(blank=True)
+    price = m.TextField(blank=True)
+    additional_media = m.URLField(blank=True)
+    media = m.URLField(blank=True)
 
 
     class Meta:
