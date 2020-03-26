@@ -2,12 +2,17 @@ from django.db import models as m
 
 
 class Discount(m.Model):
-    media = m.URLField()
     shop = m.TextField()
+    name_of_discount = m.TextField(unique=True)
+    text = m.TextField()
+    price = m.TextField()
+    additional_media = m.URLField()
+    media = m.URLField()
+
 
     class Meta:
         verbose_name_plural = "Discount"
-        ordering = ["media"]
+        ordering = ["shop"]
 
     def __repr__(self):
         return f"Shop # {self.pk}: '{self.media}'"
