@@ -62,10 +62,11 @@ class TelegramView(APIView):
             return False
         kw = {}
 
-        if text in ("/actual", "Актуальные"):
+        if text in ("", "Актуальные"):
             captions = self.get_captions()
             for caption in captions:
                 self.bot_respond_with_photo(chat, caption)
+
         else:
             bot_response = ""
             if user.get("username"):
