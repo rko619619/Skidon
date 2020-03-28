@@ -18,5 +18,5 @@ router.register("post_kateg", Post_kategViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("telegram/", TelegramView.as_view()),
+    #path("telegram/", TelegramView.as_view()),
 ]
