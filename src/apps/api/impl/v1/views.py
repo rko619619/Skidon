@@ -62,8 +62,23 @@ class TelegramView(APIView):
             return False
         kw = {}
 
-        if text in ("", "Актуальные"):
-            captions = self.get_captions()
+        if text in ("KFC"):
+            captions = self.get_captions_kfc()
+            for caption in captions:
+                self.bot_respond_with_photo(chat, caption)
+
+        if text in ("Евроопт"):
+            captions = self.get_captions_evroopt()
+            for caption in captions:
+                self.bot_respond_with_photo(chat, caption)
+
+        if text in ("Корона"):
+            captions = self.get_captions_korona()
+            for caption in captions:
+                self.bot_respond_with_photo(chat, caption)
+
+        if text in ("Виталюр"):
+            captions = self.get_captions_vitalur()
             for caption in captions:
                 self.bot_respond_with_photo(chat, caption)
 
@@ -76,14 +91,14 @@ class TelegramView(APIView):
                 if user.get("last_name"):
                     bot_response += " " + user["last_name"]
 
-            bot_response += "! За слова ответишь?"
+            bot_response += "Выбери категорию :)"
             kw["message_id"] = message["message_id"]
         tg_resp = self.bot_respond(chat, bot_response, **kw)
         print(tg_resp)
         return True
 
-    def get_captions(self):
-        discounts = Discount.objects.all()
+    def get_captions_kfc(self):
+        discounts = Discount.objects.filter(shop="KFC")
 
         discounts_post = []
 
@@ -91,6 +106,46 @@ class TelegramView(APIView):
             shop = dis.shop
             photo = self.download_photo(dis.media)
             discounts_post.append((shop, photo))
+        return discounts_post
+
+    def get_captions_korona(self):
+        discounts = Discount.objects.filter(shop="Korona")
+
+        discounts_post = []
+
+        for dis in discounts:
+            shop = dis.shop
+            name_of_discount = dis.name_of_discount
+            photo = self.download_photo(dis.media)
+            text = dis.text
+            discounts_post.append((shop, name_of_discount, photo, text))
+        return discounts_post
+
+    def get_captions_vitalur(self):
+        discounts = Discount.objects.filter("Vitalur")
+
+        discounts_post = []
+
+        for dis in discounts:
+            shop = dis.shop
+            text=dis.text
+            name_of_discount=dis.name_of_discount
+            photo = self.download_photo(dis.media)
+            price=dis.price
+
+            discounts_post.append((shop,text,name_of_discount, photo, price))
+        return discounts_post
+
+    def get_captions_evroopt(self):
+        discounts = Discount.objects.filte(shop="Evroopt")
+
+        discounts_post = []
+
+        for dis in discounts:
+            shop = dis.shop
+            name_of_discount= dis.name_of_discount
+            photo = self.download_photo(dis.media)
+            discounts_post.append((shop, name_of_discount, photo))
         return discounts_post
 
     def download_photo(self, file_url):
@@ -111,9 +166,11 @@ class TelegramView(APIView):
             "text": reply,
             "reply_markup": {
                 "keyboard": [
-                    [{"text": "Скидки"}],
-                    [{"text": "Новости о еде"}],
-                    [{"text": "Следуюшая"}, {"text": "Предыдущая"}],
+                    [{"text": "KFC"}],
+                    [{"text": "Евроопт"}],
+                    [{"text": "Корона"}],
+                    [{"text": "Виталюр"}],
+
                 ],
                 "resize_keyboard": True,
             },
