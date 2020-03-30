@@ -143,7 +143,7 @@ class TelegramView(APIView):
 
         for dis in discounts:
             shop = dis.shop
-            name_of_discount= dis.name_of_discount
+            name_of_discount = dis.name_of_discount
             photo = self.download_photo(dis.media)
             discounts_post.append((shop, name_of_discount, photo))
         return discounts_post
@@ -193,7 +193,7 @@ class TelegramView(APIView):
 
         payload = {"chat_id": chat["id"], "caption": caption[0]}
 
-        files = {"photo": ("InputFile", caption[1])}
+        files = {"photo": ("InputFile", caption[2])}
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
