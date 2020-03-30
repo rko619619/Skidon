@@ -208,7 +208,7 @@ class TelegramView(APIView):
 
         payload = {"chat_id": chat["id"], "caption": caption[0]}
 
-        files = {"photo": ("InputFile", caption[1])}
+        files = {"photo": ("InputFile", caption[4])}
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
@@ -221,7 +221,7 @@ class TelegramView(APIView):
 
         payload = {"chat_id": chat["id"], "caption": caption[0]}
 
-        files = {"photo": ("InputFile", caption[1])}
+        files = {"photo": ("InputFile", caption[3])}
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
@@ -234,7 +234,7 @@ class TelegramView(APIView):
 
         payload = {"chat_id": chat["id"], "caption": caption[0]}
 
-        files = {"photo": ("InputFile", caption[1])}
+        files = {"photo": ("InputFile", caption[2])}
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
