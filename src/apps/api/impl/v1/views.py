@@ -67,17 +67,17 @@ class TelegramView(APIView):
             for caption in captions:
                 self.bot_respond_with_photo(chat, caption)
 
-        if text in ("Evroopt"):
+        elif text in ("Evroopt"):
             captions = self.get_captions_evroopt()
             for caption in captions:
                 self.bot_respond_with_photo(chat, caption)
 
-        if text in ("Korona"):
+        elif text in ("Korona"):
             captions = self.get_captions_korona()
             for caption in captions:
                 self.bot_respond_with_photo(chat, caption)
 
-        if text in ("Vitalur"):
+        elif text in ("Vitalur"):
             captions = self.get_captions_vitalur()
             for caption in captions:
                 self.bot_respond_with_photo(chat, caption)
