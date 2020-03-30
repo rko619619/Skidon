@@ -48,7 +48,14 @@ class ApiTest(TestCase):
         return post
 
     def create_discount(self, name) -> Discount:
-        discount = Discount(media=name, shop=name, name_of_discount=name, text=name, price=name, additional_media=name )
+        discount = Discount(
+            media=name,
+            shop=name,
+            name_of_discount=name,
+            text=name,
+            price=name,
+            additional_media=name,
+        )
         discount.save()
 
         return discount

@@ -130,12 +130,11 @@ class TelegramView(APIView):
         return tg_resp
 
     def bot_respond_with_photo(self, chat, caption):
-        bot_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
+        bot_url = (
+            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
+        )
 
-        payload = {
-            "chat_id": chat["id"],
-            "caption": caption[0],
-        }
+        payload = {"chat_id": chat["id"], "caption": caption[0]}
 
         files = {"photo": ("InputFile", caption[1])}
 

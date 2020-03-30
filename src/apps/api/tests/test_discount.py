@@ -17,7 +17,7 @@ class DiscountApiTest(ApiTest):
         payload = response.json()
         self.assertEqual(len(payload), 2)
 
-        for obj, ph in zip(payload, (discount1,discount2)):
+        for obj, ph in zip(payload, (discount1, discount2)):
             self.assertTrue(obj)
             self.assertIsInstance(obj, dict)
 
@@ -30,7 +30,7 @@ class DiscountApiTest(ApiTest):
                     "text": ph.text,
                     "price": ph.price,
                     "additional_media": ph.additional_media,
-                    "media":ph.media,
+                    "media": ph.media,
                 },
             )
 
@@ -44,23 +44,37 @@ class DiscountApiTest(ApiTest):
         self.assertIsInstance(payload, dict)
 
         self.assertDictEqual(
-            payload, {
+            payload,
+            {
                 "id": ph.pk,
-                    "shop": ph.shop,
-                    "name_of_discount": ph.name_of_discount,
-                    "text": ph.text,
-                    "price": ph.price,
-                    "additional_media": ph.additional_media,
-                    "media" : ph.media,
-            }
+                "shop": ph.shop,
+                "name_of_discount": ph.name_of_discount,
+                "text": ph.text,
+                "price": ph.price,
+                "additional_media": ph.additional_media,
+                "media": ph.media,
+            },
         )
 
     def test_create(self):
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
-        data1 = {"media": "http://test.test/test1", "shop": "shop1","name_of_discount":"name1","text":"text1","price":"price", "additional_media":"http://test.test/test1"}
-        data2 = {"media": "http://test.test/test1", "shop": "shop1", "name_of_discount": "name2", "text": "text1",
-                 "price": "price", "additional_media": "http://test.test/test1"}
+        data1 = {
+            "media": "http://test.test/test1",
+            "shop": "shop1",
+            "name_of_discount": "name1",
+            "text": "text1",
+            "price": "price",
+            "additional_media": "http://test.test/test1",
+        }
+        data2 = {
+            "media": "http://test.test/test1",
+            "shop": "shop1",
+            "name_of_discount": "name2",
+            "text": "text1",
+            "price": "price",
+            "additional_media": "http://test.test/test1",
+        }
         response = self.client.post(
             "/api/v1/discount/",
             data=data1,
@@ -83,12 +97,13 @@ class DiscountApiTest(ApiTest):
         user_headers = {"HTTP_AUTHORIZATION": self.user_token}
         admin_headers = {"HTTP_AUTHORIZATION": self.admin_token}
         data = {
-                "shop": "shop",
-                "name_of_discount": "sad",
-                "text": "sad",
-                "price": "sdsa",
-                "additional_media": "http://media.com",
-                "media" : "http://media.com",}
+            "shop": "shop",
+            "name_of_discount": "sad",
+            "text": "sad",
+            "price": "sdsa",
+            "additional_media": "http://media.com",
+            "media": "http://media.com",
+        }
 
         response = self.client.put(
             f"/api/v1/discount/{ph1.pk}/",
