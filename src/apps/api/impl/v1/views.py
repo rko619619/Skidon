@@ -67,17 +67,17 @@ class TelegramView(APIView):
             for caption in captions:
                 self.bot_respond_with_photo(chat, caption)
 
-        if text in ("Евроопт"):
+        if text in ("Evroopt"):
             captions = self.get_captions_evroopt()
             for caption in captions:
                 self.bot_respond_with_photo(chat, caption)
 
-        if text in ("Корона"):
+        if text in ("Korona"):
             captions = self.get_captions_korona()
             for caption in captions:
                 self.bot_respond_with_photo(chat, caption)
 
-        if text in ("Виталюр"):
+        if text in ("Vitalur"):
             captions = self.get_captions_vitalur()
             for caption in captions:
                 self.bot_respond_with_photo(chat, caption)
@@ -91,7 +91,7 @@ class TelegramView(APIView):
                 if user.get("last_name"):
                     bot_response += " " + user["last_name"]
 
-            bot_response += "Выбери категорию :)"
+            bot_response += "Выбери категорию  херррр :)"
             kw["message_id"] = message["message_id"]
         tg_resp = self.bot_respond(chat, bot_response, **kw)
         print(tg_resp)
@@ -137,7 +137,7 @@ class TelegramView(APIView):
         return discounts_post
 
     def get_captions_evroopt(self):
-        discounts = Discount.objects.filte(shop="Evroopt")
+        discounts = Discount.objects.filter(shop="Evroopt")
 
         discounts_post = []
 
@@ -167,9 +167,9 @@ class TelegramView(APIView):
             "reply_markup": {
                 "keyboard": [
                     [{"text": "KFC"}],
-                    [{"text": "Евроопт"}],
-                    [{"text": "Корона"}],
-                    [{"text": "Виталюр"}],
+                    [{"text": "Evroopt"}],
+                    [{"text": "Korona"}],
+                    [{"text": "Vitalur"}],
 
                 ],
                 "resize_keyboard": True,
