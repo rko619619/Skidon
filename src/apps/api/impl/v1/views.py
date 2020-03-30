@@ -65,22 +65,24 @@ class TelegramView(APIView):
         if text in ("KFC"):
             captions = self.get_captions_kfc()
             for caption in captions:
-                self.bot_respond_with_photo(chat, caption)
+                self.bot_respond_with_photo_kfc(chat, caption)
 
         elif text in ("Evroopt"):
+            print("XXXXXXXXXXXXXXXXXX")
             captions = self.get_captions_evroopt()
             for caption in captions:
-                self.bot_respond_with_photo(chat, caption)
+                self.bot_respond_with_photo_evroopt(chat, caption)
 
         elif text in ("Korona"):
             captions = self.get_captions_korona()
             for caption in captions:
-                self.bot_respond_with_photo(chat, caption)
+                self.bot_respond_with_photo_korona(chat, caption)
 
         elif text in ("Vitalur"):
+            print("XXXXXXXXXXXXXXXXXX")
             captions = self.get_captions_vitalur()
             for caption in captions:
-                self.bot_respond_with_photo(chat, caption)
+                self.bot_respond_with_photo_vitalur(chat, caption)
 
         else:
             bot_response = ""
@@ -186,15 +188,56 @@ class TelegramView(APIView):
 
         return tg_resp
 
-    def bot_respond_with_photo(self, chat, caption):
+    def bot_respond_with_photo_kfc(self, chat, caption):
         bot_url = (
             f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
         )
 
         payload = {"chat_id": chat["id"], "caption": caption[0]}
 
-        files = {"photo": ("InputFile", caption[2])}
+        files = {"photo": ("InputFile", caption[1])}
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
         return tg_resp
+
+    def bot_respond_with_photo_vitalur(self, chat, caption):
+        bot_url = (
+            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
+        )
+
+        payload = {"chat_id": chat["id"], "caption": caption[0]}
+
+        files = {"photo": ("InputFile", caption[1])}
+
+        tg_resp = requests.post(bot_url, data=payload, files=files)
+
+        return tg_resp
+
+    def bot_respond_with_photo_korona(self, chat, caption):
+        bot_url = (
+            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
+        )
+
+        payload = {"chat_id": chat["id"], "caption": caption[0]}
+
+        files = {"photo": ("InputFile", caption[1])}
+
+        tg_resp = requests.post(bot_url, data=payload, files=files)
+
+        return tg_resp
+
+    def bot_respond_with_photo_evroopt(self, chat, caption):
+        bot_url = (
+            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
+        )
+
+        payload = {"chat_id": chat["id"], "caption": caption[0]}
+
+        files = {"photo": ("InputFile", caption[1])}
+
+        tg_resp = requests.post(bot_url, data=payload, files=files)
+
+        return tg_resp
+
+
