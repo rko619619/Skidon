@@ -67,17 +67,17 @@ class TelegramView(APIView):
             for caption in captions:
                 self.bot_respond_with_photo_kfc(chat, caption)
 
-        elif text.startswith("Evroopt"):
+        elif text in ("Evroopt"):
             captions = self.get_captions_evroopt()
             for caption in captions:
                 self.bot_respond_with_photo_evroopt(chat, caption)
 
-        elif text.startswith("Korona"):
+        elif text in ("Korona"):
             captions = self.get_captions_korona()
             for caption in captions:
                 self.bot_respond_with_photo_korona(chat, caption)
 
-        elif text.startswith("Vitalur"):
+        elif text in ("Vitalur"):
             captions = self.get_captions_vitalur()
             for caption in captions:
                 self.bot_respond_with_photo_vitalur(chat, caption)
@@ -128,12 +128,12 @@ class TelegramView(APIView):
 
         for dis in discounts:
             shop = dis.shop
-            text=dis.text
-            name_of_discount=dis.name_of_discount
+            text = dis.text
+            name_of_discount = dis.name_of_discount
             photo = self.download_photo(dis.media)
-            price=dis.price
+            price = dis.price
 
-            discounts_post.append((shop,text,name_of_discount, photo, price))
+            discounts_post.append((shop, text, name_of_discount, photo, price))
         return discounts_post
 
     def get_captions_evroopt(self):
@@ -170,7 +170,6 @@ class TelegramView(APIView):
                     [{"text": "Evroopt"}],
                     [{"text": "Korona"}],
                     [{"text": "Vitalur"}],
-
                 ],
                 "resize_keyboard": True,
             },
@@ -237,5 +236,3 @@ class TelegramView(APIView):
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
         return tg_resp
-
-
