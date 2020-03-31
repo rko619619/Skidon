@@ -62,12 +62,12 @@ class TelegramView(APIView):
             return False
         kw = {}
 
-        if text in ("KFC"):
+        if text in ("Evroopt"):
             captions = self.get_captions_kfc()
             for caption in captions:
                 self.bot_respond_with_photo_kfc(chat, caption)
 
-        elif text in ("Evroopt"):
+        elif text in ("KFC"):
             print("XXXXXXXXXXXXXXXXXX")
             captions = self.get_captions_evroopt()
             for caption in captions:
