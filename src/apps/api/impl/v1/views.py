@@ -67,19 +67,17 @@ class TelegramView(APIView):
             for caption in captions:
                 self.bot_respond_with_photo_kfc(chat, caption)
 
-        elif text in ("Evroopt"):
-            print("XXXXXXXXXXXXXXXXXX")
+        elif text.startswith("Evroopt"):
             captions = self.get_captions_evroopt()
             for caption in captions:
                 self.bot_respond_with_photo_evroopt(chat, caption)
 
-        elif text in ("Korona"):
+        elif text.startswith("Korona"):
             captions = self.get_captions_korona()
             for caption in captions:
                 self.bot_respond_with_photo_korona(chat, caption)
 
-        elif text in ("Vitalur"):
-            print("XXXXXXXXXXXXXXXXXX")
+        elif text.startswith("Vitalur"):
             captions = self.get_captions_vitalur()
             for caption in captions:
                 self.bot_respond_with_photo_vitalur(chat, caption)
@@ -93,7 +91,7 @@ class TelegramView(APIView):
                 if user.get("last_name"):
                     bot_response += " " + user["last_name"]
 
-            bot_response += "Выбери категорию  херррр :)"
+            bot_response += "Выбери категорию херррр :)"
             kw["message_id"] = message["message_id"]
         tg_resp = self.bot_respond(chat, bot_response, **kw)
         print(tg_resp)
