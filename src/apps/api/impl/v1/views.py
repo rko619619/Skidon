@@ -70,17 +70,17 @@ class TelegramView(APIView):
         elif text in "Evroopt":
             captions = self.get_captions_evroopt()
             for caption in captions:
-                self.bot_respond_with_photo_evroopt(chat, caption)
+                self.bot_respond_with_photo(chat, caption)
 
         elif text in "Korona":
             captions = self.get_captions_korona()
             for caption in captions:
-                self.bot_respond_with_photo_korona(chat, caption)
+                self.bot_respond_with_photo(chat, caption)
 
         elif text in "Vitalur":
             captions = self.get_captions_vitalur()
             for caption in captions:
-                self.bot_respond_with_photo_vitalur(chat, caption)
+                self.bot_respond_with_photo(chat, caption)
 
         else:
             bot_response = ""
@@ -192,7 +192,7 @@ class TelegramView(APIView):
 
         payload = {"chat_id": chat["id"], "caption": caption[0]}
 
-        files = {"photo": ("InputFile", caption[1])}
+        files = {"photo": ("InputFile", caption[1]), "text": "Проверка"}
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
