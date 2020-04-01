@@ -122,7 +122,7 @@ class TelegramView(APIView):
         return discounts_post
 
     def get_captions_vitalur(self):
-        discounts = Discount.objects.filter("Vitalur")
+        discounts = Discount.objects.filter(shop="Vitalur")
 
         discounts_post = []
 
