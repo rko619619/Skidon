@@ -190,7 +190,7 @@ class TelegramView(APIView):
             f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
         )
 
-        payload = {"chat_id": chat["id"], "caption": caption[0]}
+        payload = {"chat_id": chat["id"], "caption": "caption[0]"}
 
         files = {"photo": ("InputFile", caption[1]), "text": "Проверка"}
 
