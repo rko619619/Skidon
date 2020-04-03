@@ -110,7 +110,7 @@ class TelegramView(APIView):
         return discounts_post
 
     def get_captions_korona(self):
-        discounts = Discount.objects.filter(shop="Korona")
+        discounts = Discount.objects.raw("SELECT * FROM about_discount WHERE shop = 'Korona'")
 
         discounts_post = []
 
