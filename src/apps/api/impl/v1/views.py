@@ -99,7 +99,7 @@ class TelegramView(APIView):
         return True
 
     def get_captions_kfc(self):
-        discounts = Discount.objects.filter(shop="KFC")
+        discounts = Discount.objects.raw("SELECT * FROM about_discount WHERE shop = 'KFC'")
 
         discounts_post = []
 
@@ -123,7 +123,7 @@ class TelegramView(APIView):
         return discounts_post
 
     def get_captions_vitalur(self):
-        discounts = Discount.objects.filter(shop="Vitalur")
+        discounts = Discount.objects.raw("SELECT * FROM about_discount WHERE shop = 'Vitalur'")
 
         discounts_post = []
 
@@ -138,7 +138,7 @@ class TelegramView(APIView):
         return discounts_post
 
     def get_captions_evroopt(self):
-        discounts = Discount.objects.filter(shop="Evroopt")
+        discounts = Discount.objects.raw("SELECT * FROM about_discount WHERE shop = 'Evroopt'")
 
         discounts_post = []
 
