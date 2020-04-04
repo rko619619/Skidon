@@ -102,9 +102,8 @@ class TelegramView(APIView):
 
             bot_response += "Выбери категорию херррр :)"
             kw["message_id"] = message["message_id"]
-            self.bot_respond(chat, bot_response, **kw)
 
-
+        self.bot_respond(chat, **kw)
         return True
 
     def get_captions_kfc(self):
@@ -173,7 +172,6 @@ class TelegramView(APIView):
 
         payload = {
             "chat_id": chat["id"],
-            "text": reply,
             "reply_markup": {
                 "keyboard": [
                     [{"text": "KFC"}],
@@ -193,11 +191,7 @@ class TelegramView(APIView):
 
         tg_resp = requests.post(bot_url, json=payload)
 
-        body = json.dumps(tg_resp.json())
-        return {
-            "statusCode": 200,
-            "body": body,
-        }
+        return tg_resp
 
     def bot_respond_with_photo_kfc(self, chat, caption):
         bot_url = (
@@ -210,13 +204,7 @@ class TelegramView(APIView):
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
-        body = json.dumps(tg_resp.json())
-        return {
-            "statusCode": 200,
-            "body": body,
-        }
-
-
+        return tg_resp
 
     def bot_respond_with_photo_korona(self, chat, caption):
         bot_url = (
@@ -228,11 +216,7 @@ class TelegramView(APIView):
         files = {"photo": ("InputFile", caption[2])}
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
-        body = json.dumps(tg_resp.json())
-        return {
-            "statusCode": 200,
-            "body": body,
-        }
+        return tg_resp
 
 
     # def bot_respond_with_photo_vitalur(self, chat, caption):
@@ -259,9 +243,5 @@ class TelegramView(APIView):
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
-        body = json.dumps(tg_resp.json())
-        return {
-            "statusCode": 200,
-            "body": body,
-        }
+        return tg_resp
 
