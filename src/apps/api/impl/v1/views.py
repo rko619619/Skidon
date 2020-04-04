@@ -67,19 +67,28 @@ class TelegramView(APIView):
             captions = self.get_captions_kfc()
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_kfc(chat, caption)
-            return bot_response
+
+            return {
+                "statusCode": 200,
+            }
 
         elif text == "Evroopt":
             captions = self.get_captions_evroopt()
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_evroopt(chat, caption)
-            return bot_response
+
+            return {
+                "statusCode": 200,
+            }
 
 
         elif text == "Korona":
             bot_response = captions = self.get_captions_korona()
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_korona(chat, caption)
+            return {
+                "statusCode": 200,
+            }
 
 
 
@@ -204,12 +213,9 @@ class TelegramView(APIView):
 
         files = {"photo": ("InputFile", caption[1])}
 
-        tg_resp={
-            "statusCode": 200,
-        }
-        requests.post(bot_url, data=payload, files=files, json=tg_resp)
+        tg_resp = requests.post(bot_url, data=payload, files=files)
 
-
+        return tg_resp
 
 
 
@@ -222,10 +228,9 @@ class TelegramView(APIView):
 
         files = {"photo": ("InputFile", caption[2])}
 
-        tg_resp = {
-            "statusCode": 200,
-        }
-        requests.post(bot_url, data=payload, files=files, json=tg_resp)
+        tg_resp = requests.post(bot_url, data=payload, files=files)
+        return tg_resp
+
 
     # def bot_respond_with_photo_vitalur(self, chat, caption):
     #     bot_url = (
@@ -249,8 +254,7 @@ class TelegramView(APIView):
 
         files = {"photo": ("InputFile", caption[2])}
 
-        tg_resp = {
-            "statusCode": 200,
-        }
-        requests.post(bot_url, data=payload, files=files, json=tg_resp)
+        tg_resp = requests.post(bot_url, data=payload, files=files)
+
+        return tg_resp
 
