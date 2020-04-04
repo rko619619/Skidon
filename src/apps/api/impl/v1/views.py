@@ -68,24 +68,24 @@ class TelegramView(APIView):
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_kfc(chat, caption)
 
-            body = json.dumps(bot_response.json())
+                body = json.dumps(bot_response.json())
 
-            return {
-                "statusCode": 200,
-                "body": body,
-            }
+                return {
+                    "statusCode": 200,
+                    "body": body,
+                }
 
         elif text == "Evroopt":
             captions = self.get_captions_evroopt()
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_evroopt(chat, caption)
 
-            body = json.dumps(bot_response.json())
+                body = json.dumps(bot_response.json())
 
-            return {
-                "statusCode": 200,
-                "body": body,
-            }
+                return {
+                    "statusCode": 200,
+                    "body": body,
+                }
 
 
         elif text == "Korona":
@@ -93,12 +93,12 @@ class TelegramView(APIView):
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_korona(chat, caption)
 
-            body = json.dumps(bot_response.json())
+                body = json.dumps(bot_response.json())
 
-            return {
-                "statusCode": 200,
-                "body": body,
-            }
+                return {
+                    "statusCode": 200,
+                    "body": body,
+                }
 
 
         # elif text == "Vitalur":
