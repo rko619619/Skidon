@@ -46,6 +46,7 @@ class TelegramView(APIView):
 
         try:
             ok = self._do_post(request)
+            print("Xuinya")
         except Exception as err:
             print("ERROR!!!!!!!", err)
             ok = False
@@ -68,27 +69,16 @@ class TelegramView(APIView):
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_kfc(chat, caption)
 
-            return {
-                "statusCode": 200,
-            }
-
         elif text == "Evroopt":
             captions = self.get_captions_evroopt()
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_evroopt(chat, caption)
-
-            return {
-                "statusCode": 200,
-            }
 
 
         elif text == "Korona":
             bot_response = captions = self.get_captions_korona()
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_korona(chat, caption)
-            return {
-                "statusCode": 200,
-            }
 
 
 
@@ -112,6 +102,7 @@ class TelegramView(APIView):
 
 
         tg_resp = self.bot_respond(chat, bot_response, **kw)
+
         print(tg_resp)
 
         return True
