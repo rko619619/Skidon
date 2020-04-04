@@ -81,7 +81,6 @@ class TelegramView(APIView):
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_korona(chat, caption)
 
-            return bot_response
 
 
         # elif text == "Vitalur":
@@ -104,13 +103,9 @@ class TelegramView(APIView):
 
 
         tg_resp = self.bot_respond(chat, bot_response, **kw)
+        print(tg_resp)
 
-        body = json.dumps(tg_resp.json())
-
-        return {
-            "statusCode": 200,
-            "body": body,
-        }
+        return True
 
     def get_captions_kfc(self):
         discounts = Discount.objects.filter(shop="KFC")
@@ -209,7 +204,12 @@ class TelegramView(APIView):
 
         files = {"photo": ("InputFile", caption[1])}
 
-        tg_resp = requests.post(bot_url, data=payload, files=files)
+        tg_resp={
+            "statusCode": 200,
+        }
+        requests.post(bot_url, data=payload, files=files, json=tg_resp)
+
+
 
 
 
@@ -222,8 +222,10 @@ class TelegramView(APIView):
 
         files = {"photo": ("InputFile", caption[2])}
 
-        tg_resp = requests.post(bot_url, data=payload, files=files)
-
+        tg_resp = {
+            "statusCode": 200,
+        }
+        requests.post(bot_url, data=payload, files=files, json=tg_resp)
 
     # def bot_respond_with_photo_vitalur(self, chat, caption):
     #     bot_url = (
@@ -247,5 +249,8 @@ class TelegramView(APIView):
 
         files = {"photo": ("InputFile", caption[2])}
 
-        tg_resp = requests.post(bot_url, data=payload, files=files)
+        tg_resp = {
+            "statusCode": 200,
+        }
+        requests.post(bot_url, data=payload, files=files, json=tg_resp)
 
