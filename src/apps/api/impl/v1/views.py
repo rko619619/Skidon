@@ -63,27 +63,25 @@ class TelegramView(APIView):
         if not text:
             return False
 
-        tg_resp=""
+
         if text == "KFC":
             captions = self.get_captions_kfc()
             for caption in captions:
-                tg_resp=self.bot_respond_with_photo_kfc(chat, caption)
-            return tg_resp
-
+                self.bot_respond_with_photo_kfc(chat, caption)
 
 
         elif text == "Evroopt":
             captions = self.get_captions_evroopt()
             for caption in captions:
-                tg_resp = self.bot_respond_with_photo_evroopt(chat, caption)
-            return tg_resp
+                self.bot_respond_with_photo_evroopt(chat, caption)
+
 
 
         elif text == "Korona":
             captions = self.get_captions_korona()
             for caption in captions:
-                tg_resp = self.bot_respond_with_photo_korona(chat, caption)
-            return tg_resp
+                self.bot_respond_with_photo_korona(chat, caption)
+
 
 
 
@@ -104,9 +102,10 @@ class TelegramView(APIView):
 
             bot_response += "Выбери категорию херррр :)"
             kw["message_id"] = message["message_id"]
-            tg_resp = self.bot_respond(chat, bot_response, **kw)
+            self.bot_respond(chat, bot_response, **kw)
 
-        return True
+
+        return False
 
     def get_captions_kfc(self):
         discounts = Discount.objects.filter(shop="KFC")
