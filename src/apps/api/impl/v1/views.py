@@ -104,11 +104,9 @@ class TelegramView(APIView):
 
             bot_response += "Выбери категорию херррр :)"
             kw["message_id"] = message["message_id"]
-
-
             tg_resp = self.bot_respond(chat, bot_response, **kw)
 
-        return tg_resp
+        return True
 
     def get_captions_kfc(self):
         discounts = Discount.objects.filter(shop="KFC")
