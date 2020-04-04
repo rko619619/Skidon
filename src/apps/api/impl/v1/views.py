@@ -5,7 +5,6 @@ from dynaconf import settings
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.utils import json
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
@@ -46,7 +45,7 @@ class TelegramView(APIView):
 
         try:
             ok = self._do_post(request)
-            print("Xuinya")
+            print("xxxx\n\n\n\nXXXX")
         except Exception as err:
             print("ERROR!!!!!!!", err)
             ok = False
@@ -68,6 +67,8 @@ class TelegramView(APIView):
             captions = self.get_captions_kfc()
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_kfc(chat, caption)
+
+
 
         elif text == "Evroopt":
             captions = self.get_captions_evroopt()
@@ -102,7 +103,6 @@ class TelegramView(APIView):
 
 
         tg_resp = self.bot_respond(chat, bot_response, **kw)
-
         print(tg_resp)
 
         return True
