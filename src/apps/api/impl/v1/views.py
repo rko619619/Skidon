@@ -167,7 +167,7 @@ class TelegramView(APIView):
 
         return image
 
-    def bot_respond(self, chat, reply, message_id=None, html=False):
+    def bot_respond(self, chat,  message_id=None, html=False):
         bot_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMessage"
 
         payload = {
