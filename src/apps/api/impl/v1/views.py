@@ -68,16 +68,37 @@ class TelegramView(APIView):
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_kfc(chat, caption)
 
+            body = json.dumps(bot_response.json())
+
+            return {
+                "statusCode": 200,
+                "body": body,
+            }
+
         elif text == "Evroopt":
             captions = self.get_captions_evroopt()
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_evroopt(chat, caption)
+
+            body = json.dumps(bot_response.json())
+
+            return {
+                "statusCode": 200,
+                "body": body,
+            }
 
 
         elif text == "Korona":
             bot_response = captions = self.get_captions_korona()
             for caption in captions:
                 bot_response = self.bot_respond_with_photo_korona(chat, caption)
+
+            body = json.dumps(bot_response.json())
+
+            return {
+                "statusCode": 200,
+                "body": body,
+            }
 
 
         # elif text == "Vitalur":
@@ -203,12 +224,7 @@ class TelegramView(APIView):
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
-        body = json.dumps(tg_resp.json())
 
-        return {
-            "statusCode": 200,
-            "body": body,
-        }
 
     def bot_respond_with_photo_korona(self, chat, caption):
         bot_url = (
@@ -221,12 +237,7 @@ class TelegramView(APIView):
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
-        body = json.dumps(tg_resp.json())
 
-        return {
-            "statusCode": 200,
-            "body": body,
-        }
     # def bot_respond_with_photo_vitalur(self, chat, caption):
     #     bot_url = (
     #         f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
@@ -251,9 +262,3 @@ class TelegramView(APIView):
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
-        body = json.dumps(tg_resp.json())
-
-        return {
-            "statusCode": 200,
-            "body": body,
-        }
