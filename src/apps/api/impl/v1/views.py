@@ -105,7 +105,7 @@ class TelegramView(APIView):
             self.bot_respond(chat, bot_response, **kw)
 
 
-        return False
+        return True
 
     def get_captions_kfc(self):
         discounts = Discount.objects.filter(shop="KFC")
@@ -193,7 +193,11 @@ class TelegramView(APIView):
 
         tg_resp = requests.post(bot_url, json=payload)
 
-        return tg_resp
+        body = json.dumps(tg_resp.json())
+        return {
+            "statusCode": 200,
+            "body": body,
+        }
 
     def bot_respond_with_photo_kfc(self, chat, caption):
         bot_url = (
@@ -206,7 +210,11 @@ class TelegramView(APIView):
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
-        return tg_resp
+        body = json.dumps(tg_resp.json())
+        return {
+            "statusCode": 200,
+            "body": body,
+        }
 
 
 
@@ -220,7 +228,11 @@ class TelegramView(APIView):
         files = {"photo": ("InputFile", caption[2])}
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
-        return tg_resp
+        body = json.dumps(tg_resp.json())
+        return {
+            "statusCode": 200,
+            "body": body,
+        }
 
 
     # def bot_respond_with_photo_vitalur(self, chat, caption):
@@ -247,5 +259,9 @@ class TelegramView(APIView):
 
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
-        return tg_resp
+        body = json.dumps(tg_resp.json())
+        return {
+            "statusCode": 200,
+            "body": body,
+        }
 
