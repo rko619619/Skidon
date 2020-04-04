@@ -98,39 +98,33 @@ class TelegramView(APIView):
         return True
 
     def get_captions_kfc(self):
-        discounts = Discount.objects.raw(
-            "SELECT * FROM about_discount WHERE shop = 'KFC';"
-        )
+        discounts = Discount.objects.filter(shop="KFC")
 
-        self.discounts_post = []
+        discounts_post = []
 
         for dis in discounts:
             shop = dis.shop
             photo = self.download_photo(dis.media)
-            self.discounts_post.append((shop, photo))
-        return self.discounts_post
+            discounts_post.append((shop, photo))
+        return discounts_post
 
     def get_captions_korona(self):
-        discounts = Discount.objects.raw(
-            "SELECT * FROM about_discount WHERE shop = 'Korona';"
-        )
+        discounts = Discount.objects.filter(shop="Korona")
 
-        self.discounts_post = []
+        discounts_post = []
 
         for dis in discounts:
             shop = dis.shop
             name_of_discount = dis.name_of_discount
             photo = self.download_photo(dis.media)
             text = dis.text
-            self.discounts_post.append((shop, name_of_discount, photo, text))
-        return self.discounts_post
+            discounts_post.append((shop, name_of_discount, photo, text))
+        return discounts_post
 
     def get_captions_vitalur(self):
-        discounts = Discount.objects.raw(
-            "SELECT * FROM about_discount WHERE shop = 'Vitalur';"
-        )
+        discounts = Discount.objects.filter(shop="Vitalur")
 
-        self.discounts_post = []
+        discounts_post = []
 
         for dis in discounts:
             shop = dis.shop
@@ -139,22 +133,20 @@ class TelegramView(APIView):
             photo = self.download_photo(dis.media)
             price = dis.price
 
-            self.discounts_post.append((shop, text, name_of_discount, photo, price))
-        return self.discounts_post
+            discounts_post.append((shop, text, name_of_discount, photo, price))
+        return discounts_post
 
     def get_captions_evroopt(self):
-        discounts = Discount.objects.raw(
-            "SELECT * FROM about_discount WHERE shop = 'Evroopt';"
-        )
+        discounts = Discount.objects.filter(shop="Evroopt")
 
-        self.discounts_post = []
+        discounts_post = []
 
         for dis in discounts:
             shop = dis.shop
             name_of_discount = dis.name_of_discount
             photo = self.download_photo(dis.media)
-            self.discounts_post.append((shop, name_of_discount, photo))
-        return self.discounts_post
+            discounts_post.append((shop, name_of_discount, photo))
+        return discounts_post
 
     def download_photo(self, file_url):
 
