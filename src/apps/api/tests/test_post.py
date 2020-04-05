@@ -1,6 +1,7 @@
-from rest_framework import status
 from datetime import date
 from typing import Optional
+
+from rest_framework import status
 
 from apps.api.tests.base import ApiTest
 

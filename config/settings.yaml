@@ -6,23 +6,25 @@ default:
   TELEGRAM_SKIDONBOT_TOKEN: ""
 
 heroku:
-  DEBUG: True
   ALLOWED_HOSTS:
     - 127.0.0.1
     - localhost
     - skidon.herokuapp.com
-    - skidon.herokuapp.com/telegram
+  DEBUG: True
 
 development:
-  DEBUG: true
   ALLOWED_HOSTS:
     - 127.0.0.1
     - localhost
+  DEBUG: true
+  SECRET_KEY: "xxx"
+  TELEGRAM_SKIDONBOT_TOKEN: "bot"
 
 travis:
-  DEBUG: true
   ALLOWED_HOSTS:
     - 127.0.0.1
     - localhost
-  SECRET_KEY: "xxx"
   DATABASE_URL: "postgresql://postgres@localhost:5432/skidon"
+  DEBUG: true
+  SECRET_KEY: "xxx"
+  TELEGRAM_SKIDONBOT_TOKEN: "bot"

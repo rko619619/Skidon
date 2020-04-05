@@ -1,6 +1,6 @@
-from rest_framework import status
-
 from typing import Optional
+
+from rest_framework import status
 
 from apps.api.tests.base import ApiTest
 
