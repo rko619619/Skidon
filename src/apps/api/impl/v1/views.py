@@ -1,5 +1,5 @@
 import io
-import json
+
 import requests
 from dynaconf import settings
 from rest_framework.exceptions import PermissionDenied
@@ -14,8 +14,8 @@ from apps.about.models import Post
 from apps.about.models import Post_kateg
 from apps.api.impl.v1.serializers import DiscountSerializer
 from apps.api.impl.v1.serializers import KatalogSerializer
-from apps.api.impl.v1.serializers import PostSerializer
 from apps.api.impl.v1.serializers import Post_kategSerializer
+from apps.api.impl.v1.serializers import PostSerializer
 
 
 class DiscountViewSet(ModelViewSet):
@@ -63,27 +63,20 @@ class TelegramView(APIView):
         if not text:
             return False
 
-
         if text == "KFC":
             captions = self.get_captions_kfc()
             for caption in captions:
                 self.bot_respond_with_photo_kfc(chat, caption)
-
 
         elif text == "Evroopt":
             captions = self.get_captions_evroopt()
             for caption in captions:
                 self.bot_respond_with_photo_evroopt(chat, caption)
 
-
-
         elif text == "Korona":
             captions = self.get_captions_korona()
             for caption in captions:
                 self.bot_respond_with_photo_korona(chat, caption)
-
-
-
 
         # elif text == "Vitalur":
         #     bot_response = captions = self.get_captions_vitalur()
@@ -158,7 +151,6 @@ class TelegramView(APIView):
         return discounts_post
 
     def download_photo(self, file_url):
-
         response = requests.get(file_url)
 
         image = io.BytesIO()
@@ -167,7 +159,7 @@ class TelegramView(APIView):
 
         return image
 
-    def bot_respond(self, chat,  message_id=None, html=False):
+    def bot_respond(self, chat, message_id=None, html=False):
         bot_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMessage"
 
         payload = {
@@ -218,7 +210,6 @@ class TelegramView(APIView):
         tg_resp = requests.post(bot_url, data=payload, files=files)
         return tg_resp
 
-
     # def bot_respond_with_photo_vitalur(self, chat, caption):
     #     bot_url = (
     #         f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
@@ -244,4 +235,3 @@ class TelegramView(APIView):
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
         return tg_resp
-

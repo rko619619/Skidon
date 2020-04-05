@@ -5,11 +5,11 @@ from django.contrib.auth import get_user_model
 from django.test import Client
 from django.test import TestCase
 
-from apps.api.models.api_settings import ApiSettings
-from apps.about.models.post_kateg import Post_kateg
+from apps.about.models.discount import Discount
 from apps.about.models.katalog import Katalog
 from apps.about.models.post import Post
-from apps.about.models.discount import Discount
+from apps.about.models.post_kateg import Post_kateg
+from apps.api.models.api_settings import ApiSettings
 
 User = get_user_model()
 

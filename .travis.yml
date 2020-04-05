@@ -3,12 +3,14 @@ language: python
 
 python:
   - "3.7"
+  - "3.8"
 
 services:
   - postgresql
 
 install:
-  - pipenv install
+  - pip install pipenv
+  - make init
 
 before_script:
   - psql -c 'create database skidon;' -U postgres
@@ -18,4 +20,4 @@ env:
     - ENV_FOR_DYNACONF=travis
 
 script:
-  - python src/manage.py test apps
+  - make test

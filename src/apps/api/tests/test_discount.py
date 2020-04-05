@@ -71,7 +71,7 @@ class DiscountApiTest(ApiTest):
             "media": "http://test.test/test1",
             "shop": "shop1",
             "name_of_discount": "name2",
-            "text": "text1",
+            "text": "text2",
             "price": "price",
             "additional_media": "http://test.test/test1",
         }
@@ -81,7 +81,7 @@ class DiscountApiTest(ApiTest):
             content_type="application/json",
             **user_headers,
         )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.json())
 
         response = self.client.post(
             "/api/v1/discount/",
@@ -89,7 +89,17 @@ class DiscountApiTest(ApiTest):
             content_type="application/json",
             **admin_headers,
         )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.json())
+
+        response = self.client.post(
+            "/api/v1/discount/",
+            data=data2,
+            content_type="application/json",
+            **admin_headers,
+        )
+        self.assertEqual(
+            response.status_code, status.HTTP_400_BAD_REQUEST, response.json()
+        )
 
     def test_update(self):
         ph1 = self.create_discount("name1")
