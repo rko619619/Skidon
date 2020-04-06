@@ -128,7 +128,7 @@ class TelegramView(APIView):
 
         discounts_post = []
 
-        for dis in discounts[0:50:]:
+        for dis in discounts[0:35:]:
             shop = dis.shop
             name_of_discount = dis.name_of_discount
             photo = self.download_photo(dis.media)
@@ -141,7 +141,7 @@ class TelegramView(APIView):
 
         discounts_post = []
 
-        for dis in discounts[0:50:]:
+        for dis in discounts[0:35:]:
             shop = dis.shop
             text = dis.text
             name_of_discount = dis.name_of_discount
