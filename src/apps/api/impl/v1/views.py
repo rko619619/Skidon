@@ -1,5 +1,5 @@
 import io
-
+import asyncio
 import requests
 from dynaconf import settings
 from rest_framework.exceptions import PermissionDenied
@@ -76,12 +76,21 @@ class TelegramView(APIView):
 
         elif text == "KFC":
             captions = self.get_captions_kfc()
+
             for caption in captions:
                 tg = self.bot_respond_with_photo_kfc(chat, caption)
                 print(tg)
 
+        elif text == "Хит":
+            captions = self.get_captions_hit()
+
+            for caption in captions:
+                tg = self.bot_respond_with_photo_hit(chat, caption)
+                print(tg)
+
         elif text == "Гиппо":
             captions = self.get_captions_gippo()
+
             for caption in captions:
                 tg = self.bot_respond_with_photo_gippo(chat, caption)
                 print(tg)
@@ -119,6 +128,17 @@ class TelegramView(APIView):
 
     def get_captions_kfc(self):
         discounts = Discount.objects.filter(shop="KFC")
+
+        discounts_post = []
+
+        for dis in discounts:
+            shop = dis.shop
+            photo = self.download_photo(dis.media)
+            discounts_post.append((shop, photo))
+        return discounts_post
+
+    def get_captions_hit(self):
+        discounts = Discount.objects.filter(shop="Hit")
 
         discounts_post = []
 
@@ -197,7 +217,7 @@ class TelegramView(APIView):
                 "keyboard": [
                     [{"text": "KFC"}],
                     [{"text": "Виталюр"},{"text": "Гиппо"}],
-                    [{"text": "Евроопт"},{"text": "Корона"}],
+                    [{"text": "Евроопт"},{"text": "Корона"},{"text": "Хит"}],
                 ],
                 "resize_keyboard": True,
             },
@@ -214,6 +234,23 @@ class TelegramView(APIView):
         return tg_resp
 
     def bot_respond_with_photo_kfc(self, chat, caption):
+        bot_url = (
+            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
+        )
+
+        payload = {
+            "chat_id": chat["id"],
+            "caption": f"{caption[0]}",
+            "disable_notification": True,
+        }
+
+        files = {"photo": ("InputFile", caption[1])}
+
+        tg_resp = requests.post(bot_url, data=payload, json=payload, files=files)
+
+        return tg_resp
+
+    def bot_respond_with_photo_hit(self, chat, caption):
         bot_url = (
             f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
         )
