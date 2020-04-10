@@ -77,9 +77,17 @@ class TelegramView(APIView):
         elif text == "KFC":
             captions = self.get_captions_kfc()
 
+            photos = []
             for caption in captions:
-                tg = self.bot_respond_with_photo_kfc(chat, caption)
+                photos.append(caption)
+                if photos.__len__() == 10:
+                    tg = self.bot_respond_with_photo_kfc(chat, photos)
+                    print(tg)
+                    photos.clear()
+            if photos.__len__() != 0:
+                tg = self.bot_respond_with_photo_kfc(chat, photos)
                 print(tg)
+                photos.clear()
 
         elif text == "Хит":
             captions = self.get_captions_hit()
@@ -96,10 +104,21 @@ class TelegramView(APIView):
                 print(tg)
 
         elif text == "Евроопт":
+
             captions = self.get_captions_evroopt()
+            print(captions.__len__())
+            photos = []
             for caption in captions:
-                tg = self.bot_respond_with_photo_evroopt(chat, caption)
+                photos.append(caption)
+                if photos.__len__() == 5:
+                    tg = self.bot_respond_with_photo_evroopt(chat, photos)
+                    print(tg)
+                    photos.clear()
+
+            if photos.__len__() != 0:
+                tg = self.bot_respond_with_photo_evroopt(chat, photos)
                 print(tg)
+                photos.clear()
 
         elif text == "Корона":
             captions = self.get_captions_korona()
@@ -132,9 +151,8 @@ class TelegramView(APIView):
         discounts_post = []
 
         for dis in discounts:
-            shop = dis.shop
-            photo = self.download_photo(dis.media)
-            discounts_post.append((shop, photo))
+            photo_url = dis.media
+            discounts_post.append(photo_url)
         return discounts_post
 
     def get_captions_hit(self):
@@ -194,8 +212,8 @@ class TelegramView(APIView):
         for dis in discounts:
             shop = dis.shop
             name_of_discount = dis.name_of_discount
-            photo = self.download_photo(dis.media)
-            discounts_post.append((shop, name_of_discount, photo))
+            photo = dis.media
+            discounts_post.append(photo)
         return discounts_post
 
     def download_photo(self, file_url):
@@ -215,7 +233,7 @@ class TelegramView(APIView):
             "text": reply,
             "reply_markup": {
                 "keyboard": [
-                    [{"text": "KFC"}],
+                    [{"text": "KFCewqwqe"}],
                     [{"text": "Виталюр"},{"text": "Гиппо"}],
                     [{"text": "Евроопт"},{"text": "Корона"},{"text": "Хит"}],
                 ],
@@ -234,21 +252,48 @@ class TelegramView(APIView):
         return tg_resp
 
     def bot_respond_with_photo_kfc(self, chat, caption):
+
         bot_url = (
-            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
+            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMediaGroup"
         )
 
-        payload = {
+        media = []
+        i = 0
+        for photo in caption:
+            i += 1
+            new_photo = {
+                "type": "photo",
+                "media": f"{photo}"
+            }
+
+            media.append(new_photo)
+            if i == 10:
+                break
+
+        body = {
             "chat_id": chat["id"],
-            "caption": f"{caption[0]}",
-            "disable_notification": True,
+            "media": media
         }
 
-        files = {"photo": ("InputFile", caption[1])}
+        resp = requests.post(bot_url,json=body)
 
-        tg_resp = requests.post(bot_url, data=payload, json=payload, files=files)
+        return resp
 
-        return tg_resp
+        # bot_url = (
+        #     f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
+        # )
+        #
+        # payload = {
+        #     "chat_id": chat["id"],
+        #     "caption": f"{caption[0]}",
+        #     "disable_notification": True,
+        # }
+        #
+        # files = {"photo": ("InputFile", caption[1])}
+        #
+        # tg_resp = requests.post(bot_url, data=payload, json=payload, files=files)
+        #
+        # return tg_resp
 
     def bot_respond_with_photo_hit(self, chat, caption):
         bot_url = (
@@ -318,13 +363,27 @@ class TelegramView(APIView):
 
     def bot_respond_with_photo_evroopt(self, chat, caption):
         bot_url = (
-            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
+            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMediaGroup"
         )
 
-        payload = {"chat_id": chat["id"], "caption": caption[0]}
+        media = []
+        i = 0
+        for photo in caption:
+            i += 1
+            new_photo = {
+                "type": "photo",
+                "media": f"{photo}"
+            }
 
-        files = {"photo": ("InputFile", caption[2])}
+            media.append(new_photo)
+            if i == 10:
+                break
 
-        tg_resp = requests.post(bot_url, data=payload, files=files)
+        body = {
+            "chat_id": chat["id"],
+            "media": media
+        }
 
-        return tg_resp
+        resp = requests.post(bot_url, json=body)
+
+        return resp
