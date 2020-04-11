@@ -1,5 +1,4 @@
 import io
-import asyncio
 import requests
 from dynaconf import settings
 from rest_framework.exceptions import PermissionDenied
@@ -63,7 +62,6 @@ class TelegramView(APIView):
         text = message.get("text")
         if not text:
             return False
-        
         if text == "\start":
             if user.get("username"):
                 bot_response += "@" + user["username"]
@@ -75,50 +73,23 @@ class TelegramView(APIView):
             kw["message_id"] = message["message_id"]
 
         elif text == "KFC":
-            captions = self.get_captions_kfc()
-
-            photos = []
-            for caption in captions:
-                photos.append(caption)
-                if photos.__len__() == 10:
-                    tg = self.bot_respond_with_photo_kfc(chat, photos)
-                    print(tg)
-                    photos.clear()
-            if photos.__len__() != 0:
-                tg = self.bot_respond_with_photo_kfc(chat, photos)
-                print(tg)
-                photos.clear()
+            captions = self.get_captions_group(text)
+            self.transform(captions, chat)
 
         elif text == "Хит":
-            captions = self.get_captions_hit()
-
-            for caption in captions:
-                tg = self.bot_respond_with_photo_hit(chat, caption)
-                print(tg)
+            text = "Hit"
+            captions = self.get_captions_group(text)
+            self.transform(captions, chat)
 
         elif text == "Гиппо":
-            captions = self.get_captions_gippo()
-
-            for caption in captions:
-                tg = self.bot_respond_with_photo_gippo(chat, caption)
-                print(tg)
+            text = "Gippo"
+            captions = self.get_captions_group(text)
+            self.transform(captions, chat)
 
         elif text == "Евроопт":
-
-            captions = self.get_captions_evroopt()
-            print(captions.__len__())
-            photos = []
-            for caption in captions:
-                photos.append(caption)
-                if photos.__len__() == 5:
-                    tg = self.bot_respond_with_photo_evroopt(chat, photos)
-                    print(tg)
-                    photos.clear()
-
-            if photos.__len__() != 0:
-                tg = self.bot_respond_with_photo_evroopt(chat, photos)
-                print(tg)
-                photos.clear()
+            text = "Evroopt"
+            captions = self.get_captions_group(text)
+            self.transform(captions, chat)
 
         elif text == "Корона":
             captions = self.get_captions_korona()
@@ -145,36 +116,14 @@ class TelegramView(APIView):
 
         return True
 
-    def get_captions_kfc(self):
-        discounts = Discount.objects.filter(shop="KFC")
+    def get_captions_group(self, text):
+        discounts = Discount.objects.filter(shop=f"{text}")
 
         discounts_post = []
 
         for dis in discounts:
             photo_url = dis.media
             discounts_post.append(photo_url)
-        return discounts_post
-
-    def get_captions_hit(self):
-        discounts = Discount.objects.filter(shop="Hit")
-
-        discounts_post = []
-
-        for dis in discounts:
-            shop = dis.shop
-            photo = self.download_photo(dis.media)
-            discounts_post.append((shop, photo))
-        return discounts_post
-
-    def get_captions_gippo(self):
-        discounts = Discount.objects.filter(shop="Gippo")
-
-        discounts_post = []
-
-        for dis in discounts:
-            shop = dis.shop
-            photo = self.download_photo(dis.media)
-            discounts_post.append((shop, photo))
         return discounts_post
 
     def get_captions_korona(self):
@@ -204,18 +153,6 @@ class TelegramView(APIView):
             discounts_post.append((shop, text, name_of_discount, photo, price))
         return discounts_post
 
-    def get_captions_evroopt(self):
-        discounts = Discount.objects.filter(shop="Evroopt")
-
-        discounts_post = []
-
-        for dis in discounts:
-            shop = dis.shop
-            name_of_discount = dis.name_of_discount
-            photo = dis.media
-            discounts_post.append(photo)
-        return discounts_post
-
     def download_photo(self, file_url):
         response = requests.get(file_url)
 
@@ -233,9 +170,9 @@ class TelegramView(APIView):
             "text": reply,
             "reply_markup": {
                 "keyboard": [
-                    [{"text": "KFCewqwqe"}],
-                    [{"text": "Виталюр"},{"text": "Гиппо"}],
-                    [{"text": "Евроопт"},{"text": "Корона"},{"text": "Хит"}],
+                    [{"text": "KFC"}],
+                    [{"text": "Виталюр"}, {"text": "Гиппо"}],
+                    [{"text": "Евроопт"}, {"text": "Корона"}, {"text": "Хит"}],
                 ],
                 "resize_keyboard": True,
             },
@@ -251,83 +188,39 @@ class TelegramView(APIView):
 
         return tg_resp
 
-    def bot_respond_with_photo_kfc(self, chat, caption):
+    def transform(self, captions, chat):
 
-        bot_url = (
-            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMediaGroup"
-        )
+        photos = []
+        for caption in captions:
+            photos.append(caption)
+            if photos.__len__() == 10:
+                tg = self.bot_respond_with_photo_group(chat, photos)
+                print(tg)
+                photos.clear()
+        if photos.__len__() != 0:
+            tg = self.bot_respond_with_photo_group(chat, photos)
+            print(tg)
+            photos.clear()
+
+    def bot_respond_with_photo_group(self, chat, caption):
+
+        bot_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMediaGroup"
 
         media = []
         i = 0
         for photo in caption:
             i += 1
-            new_photo = {
-                "type": "photo",
-                "media": f"{photo}"
-            }
+            new_photo = {"type": "photo", "media": f"{photo}"}
 
             media.append(new_photo)
             if i == 10:
                 break
 
-        body = {
-            "chat_id": chat["id"],
-            "media": media
-        }
+        body = {"chat_id": chat["id"], "media": media}
 
-        resp = requests.post(bot_url,json=body)
+        resp = requests.post(bot_url, json=body)
 
         return resp
-
-        # bot_url = (
-        #     f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
-        # )
-        #
-        # payload = {
-        #     "chat_id": chat["id"],
-        #     "caption": f"{caption[0]}",
-        #     "disable_notification": True,
-        # }
-        #
-        # files = {"photo": ("InputFile", caption[1])}
-        #
-        # tg_resp = requests.post(bot_url, data=payload, json=payload, files=files)
-        #
-        # return tg_resp
-
-    def bot_respond_with_photo_hit(self, chat, caption):
-        bot_url = (
-            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
-        )
-
-        payload = {
-            "chat_id": chat["id"],
-            "caption": f"{caption[0]}",
-            "disable_notification": True,
-        }
-
-        files = {"photo": ("InputFile", caption[1])}
-
-        tg_resp = requests.post(bot_url, data=payload, json=payload, files=files)
-
-        return tg_resp
-
-    def bot_respond_with_photo_gippo(self, chat, caption):
-        bot_url = (
-            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
-        )
-
-        payload = {
-            "chat_id": chat["id"],
-            "caption": f"{caption[0]}",
-            "disable_notification": True,
-        }
-
-        files = {"photo": ("InputFile", caption[1])}
-
-        tg_resp = requests.post(bot_url, data=payload, json=payload, files=files)
-
-        return tg_resp
 
     def bot_respond_with_photo_korona(self, chat, caption):
         bot_url = (
@@ -360,30 +253,3 @@ class TelegramView(APIView):
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
         return tg_resp
-
-    def bot_respond_with_photo_evroopt(self, chat, caption):
-        bot_url = (
-            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMediaGroup"
-        )
-
-        media = []
-        i = 0
-        for photo in caption:
-            i += 1
-            new_photo = {
-                "type": "photo",
-                "media": f"{photo}"
-            }
-
-            media.append(new_photo)
-            if i == 10:
-                break
-
-        body = {
-            "chat_id": chat["id"],
-            "media": media
-        }
-
-        resp = requests.post(bot_url, json=body)
-
-        return resp
