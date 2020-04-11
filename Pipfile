@@ -16,4 +16,5 @@ djangorestframework = "*"
 dynaconf = {extras = ["yaml"],version = "*"}
 psycopg2-binary = "*"
 requests = "*"
-
+pylint = "*"
+flake8 = "*"
