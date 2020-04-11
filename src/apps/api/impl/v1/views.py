@@ -76,6 +76,12 @@ class TelegramView(APIView):
             captions = self.get_captions_group(text)
             self.transform(captions, chat)
 
+        elif text =="Новости о еде!":
+            captions = self.get_captions_koko()
+            for caption in captions:
+                tg = self.bot_respond_with_photo_koko(chat, caption)
+                print(tg)
+
         elif text == "Хит":
             text = "Hit"
             captions = self.get_captions_group(text)
@@ -139,6 +145,19 @@ class TelegramView(APIView):
             discounts_post.append((shop, name_of_discount, photo, text))
         return discounts_post
 
+    def get_captions_koko(self):
+        discounts = Discount.objects.filter(shop="KOKO")
+
+        discounts_post = []
+
+        for dis in discounts[0:9:]:
+            shop = dis.shop
+            name_of_discount = dis.name_of_discount
+            photo = self.download_photo(dis.media)
+            text = dis.text
+            discounts_post.append((shop, name_of_discount, photo, text))
+        return discounts_post
+
     def get_captions_vitalur(self):
         discounts = Discount.objects.filter(shop="Vitalur")
 
@@ -173,6 +192,7 @@ class TelegramView(APIView):
                     [{"text": "KFC"}],
                     [{"text": "Виталюр"}, {"text": "Гиппо"}],
                     [{"text": "Евроопт"}, {"text": "Корона"}, {"text": "Хит"}],
+                    [{"text": "Новости о еде!"}],
                 ],
                 "resize_keyboard": True,
             },
@@ -237,6 +257,30 @@ class TelegramView(APIView):
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
         return tg_resp
+
+    def bot_respond_with_photo_koko(self, chat, caption):
+        bot_url1 = (
+            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
+        )
+        bot_url2 = (
+            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMessage"
+        )
+        payload1 = {
+            "chat_id": chat["id"],
+        }
+        payload2 = {
+            "chat_id": chat["id"],
+            "text": f"{caption[0]}\n{caption[1]}\n{caption[3]}",
+        }
+
+        files1 = {"photo": ("InputFile", caption[2])}
+        files2 = {"text": f"{caption[0]}\n{caption[1]}\n{caption[3]}"}
+
+        tg_resp1 = requests.post(bot_url1, data=payload1, files=files1)
+        tg_resp2 = requests.post(bot_url2, data=payload2)
+
+
+        return tg_resp1,tg_resp2
 
     def bot_respond_with_photo_vitalur(self, chat, caption):
         bot_url = (
