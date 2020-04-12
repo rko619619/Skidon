@@ -86,7 +86,7 @@ class TelegramView(APIView):
         elif text =="Новости о еде!":
             captions = self.get_captions_koko()
             tasks = []
-            for caption in captions:
+            for caption in captions[:5]:
                 task=asyncio.create_task(self.bot_respond_with_photo_koko(chat, caption))
                 tasks.append(task)
             for task in tasks:
