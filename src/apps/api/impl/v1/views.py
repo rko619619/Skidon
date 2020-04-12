@@ -154,9 +154,9 @@ class TelegramView(APIView):
             shop = dis.shop
             name_of_discount = dis.name_of_discount
             photo = dis.media
+            additional_media = dis.additional_media
             text = dis.text
-            additional_media=dis.additional_media
-            discounts_post.append((shop, name_of_discount, photo,additional_media, text))
+            discounts_post.append((shop, name_of_discount, photo, additional_media, text))
         return discounts_post
 
     def get_captions_vitalur(self):
