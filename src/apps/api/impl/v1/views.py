@@ -38,6 +38,7 @@ class PostViewSet(ModelViewSet):
 
 
 class TelegramView(APIView):
+
     def post(self, request: Request, *_args, **_kw):
         if not settings.TELEGRAM_SKIDONBOT_TOKEN or not request:
             raise PermissionDenied("invalid bot configuration")
