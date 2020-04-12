@@ -44,13 +44,13 @@ class PostViewSet(ModelViewSet):
 
 
 class TelegramView(APIView):
-
     async def post(self, request: Request, *_args, **_kw):
         if not settings.TELEGRAM_SKIDONBOT_TOKEN or not request:
             raise PermissionDenied("invalid bot configuration")
-
+        ok = bool
         try:
-            await self._do_post(request)
+            if await self._do_post(request):
+                ok=True
             print("Good")
         except Exception as err:
             print("ERROR!!!!!!!", err)
@@ -69,7 +69,7 @@ class TelegramView(APIView):
         text = message.get("text")
         if not text:
             return False
-        if text == "\start":
+        if text == "/start":
             if user.get("username"):
                 bot_response += "@" + user["username"]
             elif user.get("first_name"):
@@ -226,29 +226,28 @@ class TelegramView(APIView):
         return tg_resp
 
     def transform(self, captions, chat):
-
+        tasks=[]
         photos = []
         for caption in captions:
             photos.append(caption)
-            if photos.__len__() == 10:
-                tg = self.bot_respond_with_photo_group(chat, photos)
-                print(tg)
+            if len(photos) == 10:
+                task=asyncio.create_task(self.bot_respond_with_photo_group(chat, photos))
+                tasks.append(task)
                 photos.clear()
-        if photos.__len__() != 0:
-            tg = self.bot_respond_with_photo_group(chat, photos)
-            print(tg)
+        if len(photos) != 0:
+            task=asyncio.create_task(self.bot_respond_with_photo_group(chat, photos))
+            tasks.append(task)
             photos.clear()
+        for task in task:
+            await task
 
     def bot_respond_with_photo_group(self, chat, caption):
 
         bot_url = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMediaGroup"
 
         media = []
-        i = 0
-        for photo in caption:
-            i += 1
+        for i, photo in enumerate(caption):
             new_photo = {"type": "photo", "media": f"{photo}"}
-
             media.append(new_photo)
             if i == 10:
                 break
@@ -283,15 +282,9 @@ class TelegramView(APIView):
         )
 
         media = []
-        i = 0
         for photo in caption[2:4]:
-            i += 1
             new_photo = {"type": "photo", "media": f"{photo}"}
-
             media.append(new_photo)
-            if i == 10:
-                break
-
         body = {"chat_id": chat["id"], "media": media}
 
         payload2 = {
@@ -321,8 +314,9 @@ class TelegramView(APIView):
 
         return tg_resp
 
-    async def run():
-        await post()
+    async def run(self):
+        obj = TelegramView()
+        await obj.post()
 
     if __name__ == "__main__":
         loop = asyncio.get_event_loop()
