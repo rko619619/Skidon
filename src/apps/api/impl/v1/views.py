@@ -1,3 +1,4 @@
+import asyncio
 import io
 import requests
 from dynaconf import settings
@@ -37,13 +38,19 @@ class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
 
 
+
+
+
+
+
 class TelegramView(APIView):
-    def post(self, request: Request, *_args, **_kw):
+
+    async def post(self, request: Request, *_args, **_kw):
         if not settings.TELEGRAM_SKIDONBOT_TOKEN or not request:
             raise PermissionDenied("invalid bot configuration")
 
         try:
-            ok = self._do_post(request)
+            await self._do_post(request)
             print("Good")
         except Exception as err:
             print("ERROR!!!!!!!", err)
@@ -51,7 +58,7 @@ class TelegramView(APIView):
 
         return Response(data={"ok": ok}, content_type="application/json")
 
-    def _do_post(self, request):
+    async def _do_post(self, request):
         kw = {}
         bot_response = ""
         if "message" not in request.data:
@@ -78,9 +85,12 @@ class TelegramView(APIView):
 
         elif text =="Новости о еде!":
             captions = self.get_captions_koko()
+            tasks = []
             for caption in captions:
-                tg = self.bot_respond_with_photo_koko(chat, caption)
-                print(tg)
+                task=asyncio.create_task(self.bot_respond_with_photo_koko(chat, caption))
+                tasks.append(task)
+            for task in tasks:
+                await task
 
         elif text == "Хит":
             text = "Hit"
@@ -99,15 +109,21 @@ class TelegramView(APIView):
 
         elif text == "Корона":
             captions = self.get_captions_korona()
+            tasks=[]
             for caption in captions:
-                tg = self.bot_respond_with_photo_korona(chat, caption)
-                print(tg)
+                task=asyncio.create_task(self.bot_respond_with_photo_korona(chat, caption))
+                tasks.append(task)
+            for task in tasks:
+                await task
 
         elif text == "Виталюр":
             captions = self.get_captions_vitalur()
+            tasks = []
             for caption in captions:
-                tg = self.bot_respond_with_photo_vitalur(chat, caption)
-                print(tg)
+                task=asyncio.create_task(self.bot_respond_with_photo_vitalur(chat, caption))
+                tasks.append(task)
+            for task in tasks:
+                await task
 
         else:
             if user.get("username"):
@@ -153,9 +169,10 @@ class TelegramView(APIView):
         for dis in discounts[0:9:]:
             shop = dis.shop
             name_of_discount = dis.name_of_discount
-            photo = self.download_photo(dis.media)
+            photo = dis.media
+            additional_media = dis.additional_media
             text = dis.text
-            discounts_post.append((shop, name_of_discount, photo, text))
+            discounts_post.append((shop, name_of_discount, photo, additional_media, text))
         return discounts_post
 
     def get_captions_vitalur(self):
@@ -259,24 +276,30 @@ class TelegramView(APIView):
         return tg_resp
 
     def bot_respond_with_photo_koko(self, chat, caption):
-        bot_url1 = (
-            f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendPhoto"
-        )
+        bot_url1 = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMediaGroup"
+
         bot_url2 = (
             f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMessage"
         )
-        payload1 = {
-            "chat_id": chat["id"],
-        }
+
+        media = []
+        i = 0
+        for photo in caption[2:4]:
+            i += 1
+            new_photo = {"type": "photo", "media": f"{photo}"}
+
+            media.append(new_photo)
+            if i == 10:
+                break
+
+        body = {"chat_id": chat["id"], "media": media}
+
         payload2 = {
             "chat_id": chat["id"],
-            "text": f"{caption[0]}\n{caption[1]}\n{caption[3]}",
+            "text": f"{caption[0]}\n{caption[1]}\n{caption[4]}",
         }
 
-        files1 = {"photo": ("InputFile", caption[2])}
-        files2 = {"text": f"{caption[0]}\n{caption[1]}\n{caption[3]}"}
-
-        tg_resp1 = requests.post(bot_url1, data=payload1, files=files1)
+        tg_resp1 = requests.post(bot_url1, json=body)
         tg_resp2 = requests.post(bot_url2, data=payload2)
 
 
@@ -297,3 +320,10 @@ class TelegramView(APIView):
         tg_resp = requests.post(bot_url, data=payload, files=files)
 
         return tg_resp
+
+    async def run():
+        await post()
+
+    if __name__ == "__main__":
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(run())
