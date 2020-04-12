@@ -78,7 +78,7 @@ class TelegramView(APIView):
 
         elif text =="Новости о еде!":
             captions = self.get_captions_koko()
-            for caption in captions:
+            for caption in captions[:5]:
                 tg = self.bot_respond_with_photo_koko(chat, caption)
                 print(tg)
 
