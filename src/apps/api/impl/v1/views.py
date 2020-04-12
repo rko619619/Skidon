@@ -50,13 +50,13 @@ class TelegramView(APIView):
         ok = bool
         try:
             if await self._do_post(request):
-                ok=True
+                return Response(data={"ok": True}, content_type="application/json")
             print("Good")
         except Exception as err:
             print("ERROR!!!!!!!", err)
-            ok = False
+            return Response(data={"ok": False}, content_type="application/json")
 
-        return Response(data={"ok": ok}, content_type="application/json")
+
 
     async def _do_post(self, request):
         kw = {}
@@ -225,7 +225,7 @@ class TelegramView(APIView):
 
         return tg_resp
 
-    def transform(self, captions, chat):
+    async def transform(self, captions, chat):
         tasks=[]
         photos = []
         for caption in captions:
@@ -238,7 +238,7 @@ class TelegramView(APIView):
             task=asyncio.create_task(self.bot_respond_with_photo_group(chat, photos))
             tasks.append(task)
             photos.clear()
-        for task in task:
+        for task in tasks:
             await task
 
     def bot_respond_with_photo_group(self, chat, caption):
@@ -315,7 +315,7 @@ class TelegramView(APIView):
         return tg_resp
 
     async def run(self):
-        obj = TelegramView()
+        obj=TelegramView
         await obj.post()
 
     if __name__ == "__main__":
