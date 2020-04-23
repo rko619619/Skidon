@@ -261,33 +261,20 @@ class TelegramView(APIView):
         return tg_resp
 
     def bot_respond_with_photo_koko(self, chat, caption):
-        bot_url1 = f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMediaGroup"
-
-        bot_url2 = (
+        bot_url = (
             f"https://api.telegram.org/bot{settings.TELEGRAM_SKIDONBOT_TOKEN}/sendMessage"
         )
-
-        media = []
-        i = 0
-        for photo in caption[2:4]:
-            i += 1
-            new_photo = {"type": "photo", "media": f"{photo}"}
-
-            media.append(new_photo)
-            if i == 10:
-                break
-
-        body = {"chat_id": chat["id"], "media": media}
 
         payload2 = {
             "chat_id": chat["id"],
             "text": f"{caption[0]}\n{caption[1]}\n{caption[4]}",
         }
+        files = {"photo": ("InputFile", caption[2])}
 
-        tg_resp1 = requests.post(bot_url1, json=body)
-        tg_resp2 = requests.post(bot_url2, data=payload2)
 
-        return tg_resp1, tg_resp2
+        tg_resp2 = requests.post(bot_url, data=payload2, files=files)
+
+        return tg_resp2
 
     def bot_respond_with_photo_vitalur(self, chat, caption):
         bot_url = (
